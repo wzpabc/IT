@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tup.mapper.EmailMapper" >
+  <resultMap id="BaseResultMap" type="com.tup.model.Email" >
+    <result column="mail" property="mail" jdbcType="VARCHAR" />
+    <result column="execDate" property="execdate" jdbcType="TIMESTAMP" />
+    <result column="nextExecDate" property="nextexecdate" jdbcType="TIMESTAMP" />
+    <result column="YearWeek" property="yearweek" jdbcType="VARCHAR" />
+    <result column="OrganNo" property="organno" jdbcType="VARCHAR" />
+    <result column="organName" property="organname" jdbcType="VARCHAR" />
+    <result column="EmailTo" property="emailto" jdbcType="VARCHAR" />
+    <result column="EmailCC" property="emailcc" jdbcType="VARCHAR" />
+    <result column="EmailBC" property="emailbc" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="attPath" property="attpath" jdbcType="VARCHAR" />
+    <result column="isActive" property="isactive" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mail, execDate, nextExecDate, YearWeek, OrganNo, organName, EmailTo, EmailCC, EmailBC, 
+    subject, content, attPath, isActive
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tup.model.EmailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from job_email
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.tup.model.EmailExample" >
+    delete from job_email
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tup.model.Email" >
+    insert into job_email (mail, execDate, nextExecDate, 
+      YearWeek, OrganNo, organName, 
+      EmailTo, EmailCC, EmailBC, 
+      subject, content, attPath, 
+      isActive)
+    values (#{mail,jdbcType=VARCHAR}, #{execdate,jdbcType=TIMESTAMP}, #{nextexecdate,jdbcType=TIMESTAMP}, 
+      #{yearweek,jdbcType=VARCHAR}, #{organno,jdbcType=VARCHAR}, #{organname,jdbcType=VARCHAR}, 
+      #{emailto,jdbcType=VARCHAR}, #{emailcc,jdbcType=VARCHAR}, #{emailbc,jdbcType=VARCHAR}, 
+      #{subject,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{attpath,jdbcType=VARCHAR}, 
+      #{isactive,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tup.model.Email" >
+    insert into job_email
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mail != null" >
+        mail,
+      </if>
+      <if test="execdate != null" >
+        execDate,
+      </if>
+      <if test="nextexecdate != null" >
+        nextExecDate,
+      </if>
+      <if test="yearweek != null" >
+        YearWeek,
+      </if>
+      <if test="organno != null" >
+        OrganNo,
+      </if>
+      <if test="organname != null" >
+        organName,
+      </if>
+      <if test="emailto != null" >
+        EmailTo,
+      </if>
+      <if test="emailcc != null" >
+        EmailCC,
+      </if>
+      <if test="emailbc != null" >
+        EmailBC,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="attpath != null" >
+        attPath,
+      </if>
+      <if test="isactive != null" >
+        isActive,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mail != null" >
+        #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="execdate != null" >
+        #{execdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nextexecdate != null" >
+        #{nextexecdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yearweek != null" >
+        #{yearweek,jdbcType=VARCHAR},
+      </if>
+      <if test="organno != null" >
+        #{organno,jdbcType=VARCHAR},
+      </if>
+      <if test="organname != null" >
+        #{organname,jdbcType=VARCHAR},
+      </if>
+      <if test="emailto != null" >
+        #{emailto,jdbcType=VARCHAR},
+      </if>
+      <if test="emailcc != null" >
+        #{emailcc,jdbcType=VARCHAR},
+      </if>
+      <if test="emailbc != null" >
+        #{emailbc,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="attpath != null" >
+        #{attpath,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tup.model.EmailExample" resultType="java.lang.Integer" >
+    select count(*) from job_email
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update job_email
+    <set >
+      <if test="record.mail != null" >
+        mail = #{record.mail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.execdate != null" >
+        execDate = #{record.execdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.nextexecdate != null" >
+        nextExecDate = #{record.nextexecdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.yearweek != null" >
+        YearWeek = #{record.yearweek,jdbcType=VARCHAR},
+      </if>
+      <if test="record.organno != null" >
+        OrganNo = #{record.organno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.organname != null" >
+        organName = #{record.organname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emailto != null" >
+        EmailTo = #{record.emailto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emailcc != null" >
+        EmailCC = #{record.emailcc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emailbc != null" >
+        EmailBC = #{record.emailbc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subject != null" >
+        subject = #{record.subject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attpath != null" >
+        attPath = #{record.attpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isactive != null" >
+        isActive = #{record.isactive,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update job_email
+    set mail = #{record.mail,jdbcType=VARCHAR},
+      execDate = #{record.execdate,jdbcType=TIMESTAMP},
+      nextExecDate = #{record.nextexecdate,jdbcType=TIMESTAMP},
+      YearWeek = #{record.yearweek,jdbcType=VARCHAR},
+      OrganNo = #{record.organno,jdbcType=VARCHAR},
+      organName = #{record.organname,jdbcType=VARCHAR},
+      EmailTo = #{record.emailto,jdbcType=VARCHAR},
+      EmailCC = #{record.emailcc,jdbcType=VARCHAR},
+      EmailBC = #{record.emailbc,jdbcType=VARCHAR},
+      subject = #{record.subject,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      attPath = #{record.attpath,jdbcType=VARCHAR},
+      isActive = #{record.isactive,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
