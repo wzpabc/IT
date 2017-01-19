@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tup.mssql.mapper.OrderHeaderMapper" >
+  <resultMap id="BaseResultMap" type="com.tup.mssql.model.OrderHeader" >
+    <id column="SHKCOO" property="shkcoo" jdbcType="VARCHAR" />
+    <id column="SHDOCO" property="shdoco" jdbcType="INTEGER" />
+    <id column="SHDCTO" property="shdcto" jdbcType="VARCHAR" />
+    <result column="SHMCU" property="shmcu" jdbcType="VARCHAR" />
+    <result column="SHCO" property="shco" jdbcType="VARCHAR" />
+    <result column="SHAN8" property="shan8" jdbcType="INTEGER" />
+    <result column="SHSHAN" property="shshan" jdbcType="INTEGER" />
+    <result column="SHTRDJ" property="shtrdj" jdbcType="DATE" />
+    <result column="SHDRQJ" property="shdrqj" jdbcType="TIMESTAMP" />
+    <result column="SHPDDJ" property="shpddj" jdbcType="DATE" />
+    <result column="SHVR01" property="shvr01" jdbcType="VARCHAR" />
+    <result column="SHDEL1" property="shdel1" jdbcType="VARCHAR" />
+    <result column="SHDEL2" property="shdel2" jdbcType="VARCHAR" />
+    <result column="SHURCD" property="shurcd" jdbcType="VARCHAR" />
+    <result column="SHURDT" property="shurdt" jdbcType="DATE" />
+    <result column="SHURAT" property="shurat" jdbcType="NUMERIC" />
+    <result column="SHURAB" property="shurab" jdbcType="NUMERIC" />
+    <result column="SHURRF" property="shurrf" jdbcType="VARCHAR" />
+    <result column="SHUPMJ" property="shupmj" jdbcType="TIMESTAMP" />
+    <result column="SAMLNM" property="samlnm" jdbcType="NVARCHAR" />
+    <result column="SAADD1" property="saadd1" jdbcType="NVARCHAR" />
+    <result column="SAADD2" property="saadd2" jdbcType="NVARCHAR" />
+    <result column="SAADD3" property="saadd3" jdbcType="NVARCHAR" />
+    <result column="SAADD4" property="saadd4" jdbcType="NVARCHAR" />
+    <result column="SHMLNM" property="shmlnm" jdbcType="NVARCHAR" />
+    <result column="SHADD1" property="shadd1" jdbcType="NVARCHAR" />
+    <result column="SHADD2" property="shadd2" jdbcType="NVARCHAR" />
+    <result column="SHADD3" property="shadd3" jdbcType="NVARCHAR" />
+    <result column="SHADD4" property="shadd4" jdbcType="NVARCHAR" />
+    <result column="JDE_UpdateDate" property="jdeUpdatedate" jdbcType="TIMESTAMP" />
+    <result column="KT_ProcessDate" property="ktProcessdate" jdbcType="TIMESTAMP" />
+    <result column="KT_FailDate" property="ktFaildate" jdbcType="TIMESTAMP" />
+    <result column="KT_RetryTimes" property="ktRetrytimes" jdbcType="INTEGER" />
+    <result column="KT_ErrorLog" property="ktErrorlog" jdbcType="VARCHAR" />
+    <result column="FMS_Process_Date" property="fmsProcessDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SHKCOO, SHDOCO, SHDCTO, SHMCU, SHCO, SHAN8, SHSHAN, SHTRDJ, SHDRQJ, SHPDDJ, SHVR01, 
+    SHDEL1, SHDEL2, SHURCD, SHURDT, SHURAT, SHURAB, SHURRF, SHUPMJ, SAMLNM, SAADD1, SAADD2, 
+    SAADD3, SAADD4, SHMLNM, SHADD1, SHADD2, SHADD3, SHADD4, JDE_UpdateDate, KT_ProcessDate, 
+    KT_FailDate, KT_RetryTimes, KT_ErrorLog, FMS_Process_Date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.tup.mssql.model.OrderHeaderKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from OrderHeader
+    where SHKCOO = #{shkcoo,jdbcType=VARCHAR}
+      and SHDOCO = #{shdoco,jdbcType=INTEGER}
+      and SHDCTO = #{shdcto,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.tup.mssql.model.OrderHeaderKey" >
+    delete from OrderHeader
+    where SHKCOO = #{shkcoo,jdbcType=VARCHAR}
+      and SHDOCO = #{shdoco,jdbcType=INTEGER}
+      and SHDCTO = #{shdcto,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tup.mssql.model.OrderHeader" >
+    insert into OrderHeader (SHKCOO, SHDOCO, SHDCTO, 
+      SHMCU, SHCO, SHAN8, 
+      SHSHAN, SHTRDJ, SHDRQJ, 
+      SHPDDJ, SHVR01, SHDEL1, 
+      SHDEL2, SHURCD, SHURDT, 
+      SHURAT, SHURAB, SHURRF, 
+      SHUPMJ, SAMLNM, SAADD1, 
+      SAADD2, SAADD3, SAADD4, 
+      SHMLNM, SHADD1, SHADD2, 
+      SHADD3, SHADD4, JDE_UpdateDate, 
+      KT_ProcessDate, KT_FailDate, KT_RetryTimes, 
+      KT_ErrorLog, FMS_Process_Date)
+    values (#{shkcoo,jdbcType=VARCHAR}, #{shdoco,jdbcType=INTEGER}, #{shdcto,jdbcType=VARCHAR}, 
+      #{shmcu,jdbcType=VARCHAR}, #{shco,jdbcType=VARCHAR}, #{shan8,jdbcType=INTEGER}, 
+      #{shshan,jdbcType=INTEGER}, #{shtrdj,jdbcType=DATE}, #{shdrqj,jdbcType=TIMESTAMP}, 
+      #{shpddj,jdbcType=DATE}, #{shvr01,jdbcType=VARCHAR}, #{shdel1,jdbcType=VARCHAR}, 
+      #{shdel2,jdbcType=VARCHAR}, #{shurcd,jdbcType=VARCHAR}, #{shurdt,jdbcType=DATE}, 
+      #{shurat,jdbcType=NUMERIC}, #{shurab,jdbcType=NUMERIC}, #{shurrf,jdbcType=VARCHAR}, 
+      #{shupmj,jdbcType=TIMESTAMP}, #{samlnm,jdbcType=NVARCHAR}, #{saadd1,jdbcType=NVARCHAR}, 
+      #{saadd2,jdbcType=NVARCHAR}, #{saadd3,jdbcType=NVARCHAR}, #{saadd4,jdbcType=NVARCHAR}, 
+      #{shmlnm,jdbcType=NVARCHAR}, #{shadd1,jdbcType=NVARCHAR}, #{shadd2,jdbcType=NVARCHAR}, 
+      #{shadd3,jdbcType=NVARCHAR}, #{shadd4,jdbcType=NVARCHAR}, #{jdeUpdatedate,jdbcType=TIMESTAMP}, 
+      #{ktProcessdate,jdbcType=TIMESTAMP}, #{ktFaildate,jdbcType=TIMESTAMP}, #{ktRetrytimes,jdbcType=INTEGER}, 
+      #{ktErrorlog,jdbcType=VARCHAR}, #{fmsProcessDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tup.mssql.model.OrderHeader" >
+    insert into OrderHeader
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shkcoo != null" >
+        SHKCOO,
+      </if>
+      <if test="shdoco != null" >
+        SHDOCO,
+      </if>
+      <if test="shdcto != null" >
+        SHDCTO,
+      </if>
+      <if test="shmcu != null" >
+        SHMCU,
+      </if>
+      <if test="shco != null" >
+        SHCO,
+      </if>
+      <if test="shan8 != null" >
+        SHAN8,
+      </if>
+      <if test="shshan != null" >
+        SHSHAN,
+      </if>
+      <if test="shtrdj != null" >
+        SHTRDJ,
+      </if>
+      <if test="shdrqj != null" >
+        SHDRQJ,
+      </if>
+      <if test="shpddj != null" >
+        SHPDDJ,
+      </if>
+      <if test="shvr01 != null" >
+        SHVR01,
+      </if>
+      <if test="shdel1 != null" >
+        SHDEL1,
+      </if>
+      <if test="shdel2 != null" >
+        SHDEL2,
+      </if>
+      <if test="shurcd != null" >
+        SHURCD,
+      </if>
+      <if test="shurdt != null" >
+        SHURDT,
+      </if>
+      <if test="shurat != null" >
+        SHURAT,
+      </if>
+      <if test="shurab != null" >
+        SHURAB,
+      </if>
+      <if test="shurrf != null" >
+        SHURRF,
+      </if>
+      <if test="shupmj != null" >
+        SHUPMJ,
+      </if>
+      <if test="samlnm != null" >
+        SAMLNM,
+      </if>
+      <if test="saadd1 != null" >
+        SAADD1,
+      </if>
+      <if test="saadd2 != null" >
+        SAADD2,
+      </if>
+      <if test="saadd3 != null" >
+        SAADD3,
+      </if>
+      <if test="saadd4 != null" >
+        SAADD4,
+      </if>
+      <if test="shmlnm != null" >
+        SHMLNM,
+      </if>
+      <if test="shadd1 != null" >
+        SHADD1,
+      </if>
+      <if test="shadd2 != null" >
+        SHADD2,
+      </if>
+      <if test="shadd3 != null" >
+        SHADD3,
+      </if>
+      <if test="shadd4 != null" >
+        SHADD4,
+      </if>
+      <if test="jdeUpdatedate != null" >
+        JDE_UpdateDate,
+      </if>
+      <if test="ktProcessdate != null" >
+        KT_ProcessDate,
+      </if>
+      <if test="ktFaildate != null" >
+        KT_FailDate,
+      </if>
+      <if test="ktRetrytimes != null" >
+        KT_RetryTimes,
+      </if>
+      <if test="ktErrorlog != null" >
+        KT_ErrorLog,
+      </if>
+      <if test="fmsProcessDate != null" >
+        FMS_Process_Date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shkcoo != null" >
+        #{shkcoo,jdbcType=VARCHAR},
+      </if>
+      <if test="shdoco != null" >
+        #{shdoco,jdbcType=INTEGER},
+      </if>
+      <if test="shdcto != null" >
+        #{shdcto,jdbcType=VARCHAR},
+      </if>
+      <if test="shmcu != null" >
+        #{shmcu,jdbcType=VARCHAR},
+      </if>
+      <if test="shco != null" >
+        #{shco,jdbcType=VARCHAR},
+      </if>
+      <if test="shan8 != null" >
+        #{shan8,jdbcType=INTEGER},
+      </if>
+      <if test="shshan != null" >
+        #{shshan,jdbcType=INTEGER},
+      </if>
+      <if test="shtrdj != null" >
+        #{shtrdj,jdbcType=DATE},
+      </if>
+      <if test="shdrqj != null" >
+        #{shdrqj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shpddj != null" >
+        #{shpddj,jdbcType=DATE},
+      </if>
+      <if test="shvr01 != null" >
+        #{shvr01,jdbcType=VARCHAR},
+      </if>
+      <if test="shdel1 != null" >
+        #{shdel1,jdbcType=VARCHAR},
+      </if>
+      <if test="shdel2 != null" >
+        #{shdel2,jdbcType=VARCHAR},
+      </if>
+      <if test="shurcd != null" >
+        #{shurcd,jdbcType=VARCHAR},
+      </if>
+      <if test="shurdt != null" >
+        #{shurdt,jdbcType=DATE},
+      </if>
+      <if test="shurat != null" >
+        #{shurat,jdbcType=NUMERIC},
+      </if>
+      <if test="shurab != null" >
+        #{shurab,jdbcType=NUMERIC},
+      </if>
+      <if test="shurrf != null" >
+        #{shurrf,jdbcType=VARCHAR},
+      </if>
+      <if test="shupmj != null" >
+        #{shupmj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="samlnm != null" >
+        #{samlnm,jdbcType=NVARCHAR},
+      </if>
+      <if test="saadd1 != null" >
+        #{saadd1,jdbcType=NVARCHAR},
+      </if>
+      <if test="saadd2 != null" >
+        #{saadd2,jdbcType=NVARCHAR},
+      </if>
+      <if test="saadd3 != null" >
+        #{saadd3,jdbcType=NVARCHAR},
+      </if>
+      <if test="saadd4 != null" >
+        #{saadd4,jdbcType=NVARCHAR},
+      </if>
+      <if test="shmlnm != null" >
+        #{shmlnm,jdbcType=NVARCHAR},
+      </if>
+      <if test="shadd1 != null" >
+        #{shadd1,jdbcType=NVARCHAR},
+      </if>
+      <if test="shadd2 != null" >
+        #{shadd2,jdbcType=NVARCHAR},
+      </if>
+      <if test="shadd3 != null" >
+        #{shadd3,jdbcType=NVARCHAR},
+      </if>
+      <if test="shadd4 != null" >
+        #{shadd4,jdbcType=NVARCHAR},
+      </if>
+      <if test="jdeUpdatedate != null" >
+        #{jdeUpdatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ktProcessdate != null" >
+        #{ktProcessdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ktFaildate != null" >
+        #{ktFaildate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ktRetrytimes != null" >
+        #{ktRetrytimes,jdbcType=INTEGER},
+      </if>
+      <if test="ktErrorlog != null" >
+        #{ktErrorlog,jdbcType=VARCHAR},
+      </if>
+      <if test="fmsProcessDate != null" >
+        #{fmsProcessDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tup.mssql.model.OrderHeader" >
+    update OrderHeader
+    <set >
+      <if test="shmcu != null" >
+        SHMCU = #{shmcu,jdbcType=VARCHAR},
+      </if>
+      <if test="shco != null" >
+        SHCO = #{shco,jdbcType=VARCHAR},
+      </if>
+      <if test="shan8 != null" >
+        SHAN8 = #{shan8,jdbcType=INTEGER},
+      </if>
+      <if test="shshan != null" >
+        SHSHAN = #{shshan,jdbcType=INTEGER},
+      </if>
+      <if test="shtrdj != null" >
+        SHTRDJ = #{shtrdj,jdbcType=DATE},
+      </if>
+      <if test="shdrqj != null" >
+        SHDRQJ = #{shdrqj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shpddj != null" >
+        SHPDDJ = #{shpddj,jdbcType=DATE},
+      </if>
+      <if test="shvr01 != null" >
+        SHVR01 = #{shvr01,jdbcType=VARCHAR},
+      </if>
+      <if test="shdel1 != null" >
+        SHDEL1 = #{shdel1,jdbcType=VARCHAR},
+      </if>
+      <if test="shdel2 != null" >
+        SHDEL2 = #{shdel2,jdbcType=VARCHAR},
+      </if>
+      <if test="shurcd != null" >
+        SHURCD = #{shurcd,jdbcType=VARCHAR},
+      </if>
+      <if test="shurdt != null" >
+        SHURDT = #{shurdt,jdbcType=DATE},
+      </if>
+      <if test="shurat != null" >
+        SHURAT = #{shurat,jdbcType=NUMERIC},
+      </if>
+      <if test="shurab != null" >
+        SHURAB = #{shurab,jdbcType=NUMERIC},
+      </if>
+      <if test="shurrf != null" >
+        SHURRF = #{shurrf,jdbcType=VARCHAR},
+      </if>
+      <if test="shupmj != null" >
+        SHUPMJ = #{shupmj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="samlnm != null" >
+        SAMLNM = #{samlnm,jdbcType=NVARCHAR},
+      </if>
+      <if test="saadd1 != null" >
+        SAADD1 = #{saadd1,jdbcType=NVARCHAR},
+      </if>
+      <if test="saadd2 != null" >
+        SAADD2 = #{saadd2,jdbcType=NVARCHAR},
+      </if>
+      <if test="saadd3 != null" >
+        SAADD3 = #{saadd3,jdbcType=NVARCHAR},
+      </if>
+      <if test="saadd4 != null" >
+        SAADD4 = #{saadd4,jdbcType=NVARCHAR},
+      </if>
+      <if test="shmlnm != null" >
+        SHMLNM = #{shmlnm,jdbcType=NVARCHAR},
+      </if>
+      <if test="shadd1 != null" >
+        SHADD1 = #{shadd1,jdbcType=NVARCHAR},
+      </if>
+      <if test="shadd2 != null" >
+        SHADD2 = #{shadd2,jdbcType=NVARCHAR},
+      </if>
+      <if test="shadd3 != null" >
+        SHADD3 = #{shadd3,jdbcType=NVARCHAR},
+      </if>
+      <if test="shadd4 != null" >
+        SHADD4 = #{shadd4,jdbcType=NVARCHAR},
+      </if>
+      <if test="jdeUpdatedate != null" >
+        JDE_UpdateDate = #{jdeUpdatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ktProcessdate != null" >
+        KT_ProcessDate = #{ktProcessdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ktFaildate != null" >
+        KT_FailDate = #{ktFaildate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ktRetrytimes != null" >
+        KT_RetryTimes = #{ktRetrytimes,jdbcType=INTEGER},
+      </if>
+      <if test="ktErrorlog != null" >
+        KT_ErrorLog = #{ktErrorlog,jdbcType=VARCHAR},
+      </if>
+      <if test="fmsProcessDate != null" >
+        FMS_Process_Date = #{fmsProcessDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SHKCOO = #{shkcoo,jdbcType=VARCHAR}
+      and SHDOCO = #{shdoco,jdbcType=INTEGER}
+      and SHDCTO = #{shdcto,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tup.mssql.model.OrderHeader" >
+    update OrderHeader
+    set SHMCU = #{shmcu,jdbcType=VARCHAR},
+      SHCO = #{shco,jdbcType=VARCHAR},
+      SHAN8 = #{shan8,jdbcType=INTEGER},
+      SHSHAN = #{shshan,jdbcType=INTEGER},
+      SHTRDJ = #{shtrdj,jdbcType=DATE},
+      SHDRQJ = #{shdrqj,jdbcType=TIMESTAMP},
+      SHPDDJ = #{shpddj,jdbcType=DATE},
+      SHVR01 = #{shvr01,jdbcType=VARCHAR},
+      SHDEL1 = #{shdel1,jdbcType=VARCHAR},
+      SHDEL2 = #{shdel2,jdbcType=VARCHAR},
+      SHURCD = #{shurcd,jdbcType=VARCHAR},
+      SHURDT = #{shurdt,jdbcType=DATE},
+      SHURAT = #{shurat,jdbcType=NUMERIC},
+      SHURAB = #{shurab,jdbcType=NUMERIC},
+      SHURRF = #{shurrf,jdbcType=VARCHAR},
+      SHUPMJ = #{shupmj,jdbcType=TIMESTAMP},
+      SAMLNM = #{samlnm,jdbcType=NVARCHAR},
+      SAADD1 = #{saadd1,jdbcType=NVARCHAR},
+      SAADD2 = #{saadd2,jdbcType=NVARCHAR},
+      SAADD3 = #{saadd3,jdbcType=NVARCHAR},
+      SAADD4 = #{saadd4,jdbcType=NVARCHAR},
+      SHMLNM = #{shmlnm,jdbcType=NVARCHAR},
+      SHADD1 = #{shadd1,jdbcType=NVARCHAR},
+      SHADD2 = #{shadd2,jdbcType=NVARCHAR},
+      SHADD3 = #{shadd3,jdbcType=NVARCHAR},
+      SHADD4 = #{shadd4,jdbcType=NVARCHAR},
+      JDE_UpdateDate = #{jdeUpdatedate,jdbcType=TIMESTAMP},
+      KT_ProcessDate = #{ktProcessdate,jdbcType=TIMESTAMP},
+      KT_FailDate = #{ktFaildate,jdbcType=TIMESTAMP},
+      KT_RetryTimes = #{ktRetrytimes,jdbcType=INTEGER},
+      KT_ErrorLog = #{ktErrorlog,jdbcType=VARCHAR},
+      FMS_Process_Date = #{fmsProcessDate,jdbcType=TIMESTAMP}
+    where SHKCOO = #{shkcoo,jdbcType=VARCHAR}
+      and SHDOCO = #{shdoco,jdbcType=INTEGER}
+      and SHDCTO = #{shdcto,jdbcType=VARCHAR}
+  </update>
+</mapper>

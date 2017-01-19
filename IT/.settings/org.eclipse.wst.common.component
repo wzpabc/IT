@@ -6,6 +6,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources/sqlMapperXml"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/mysql"/>
         <property name="java-output-path" value="/IT/target/classes"/>
         <property name="context-root" value="IT"/>
     </wb-module>

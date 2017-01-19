@@ -31,7 +31,8 @@ public class SysLogController {
     }
 
 
-    @PostMapping("/dataGrid")
+    //@PostMapping("/dataGrid")
+    @RequestMapping("/dataGrid")
     @ResponseBody
     public PageInfo dataGrid(Integer page, Integer rows) {
         PageInfo pageInfo = new PageInfo(page, rows);
