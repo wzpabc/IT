@@ -77,6 +77,64 @@
     <result column="IS_CHECK" property="isCheck" jdbcType="VARCHAR" />
     <result column="FMS_Process_Date" property="fmsProcessDate" jdbcType="TIMESTAMP" />
   </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
   <sql id="Base_Column_List" >
     SDKCOO, SDDOCO, SDDCTO, SDLNID, SDMCU, SDCO, SDAN8, SDSHAN, SDPA8, SDLNTY, SDDRQJ, 
     SDTRDJ, SDPDDJ, SDOPDJ, SDADDJ, SDCNDJ, SDDGL, SDRSDJ, SDVR02, SDLITM, SDLOCN, SDLOTN, 
@@ -87,6 +145,21 @@
     SDUPMJ, JDE_UpdateDate, KT_ProcessDate, KT_FailDate, KT_RetryTimes, KT_ErrorLog, 
     IS_CHECK, FMS_Process_Date
   </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tup.mssql.model.OrderDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from OrderDetail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.tup.mssql.model.OrderDetailKey" >
     select 
     <include refid="Base_Column_List" />
@@ -104,6 +177,12 @@
       and SDDCTO = #{sddcto,jdbcType=VARCHAR}
       and SDLNID = #{sdlnid,jdbcType=NUMERIC}
       and SDMCU = #{sdmcu,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tup.mssql.model.OrderDetailExample" >
+    delete from OrderDetail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
   </delete>
   <insert id="insert" parameterType="com.tup.mssql.model.OrderDetail" >
     insert into OrderDetail (SDKCOO, SDDOCO, SDDCTO, 
@@ -608,6 +687,322 @@
       </if>
     </trim>
   </insert>
+  <select id="countByExample" parameterType="com.tup.mssql.model.OrderDetailExample" resultType="java.lang.Integer" >
+    select count(*) from OrderDetail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update OrderDetail
+    <set >
+      <if test="record.sdkcoo != null" >
+        SDKCOO = #{record.sdkcoo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sddoco != null" >
+        SDDOCO = #{record.sddoco,jdbcType=BIGINT},
+      </if>
+      <if test="record.sddcto != null" >
+        SDDCTO = #{record.sddcto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdlnid != null" >
+        SDLNID = #{record.sdlnid,jdbcType=NUMERIC},
+      </if>
+      <if test="record.sdmcu != null" >
+        SDMCU = #{record.sdmcu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdco != null" >
+        SDCO = #{record.sdco,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdan8 != null" >
+        SDAN8 = #{record.sdan8,jdbcType=INTEGER},
+      </if>
+      <if test="record.sdshan != null" >
+        SDSHAN = #{record.sdshan,jdbcType=INTEGER},
+      </if>
+      <if test="record.sdpa8 != null" >
+        SDPA8 = #{record.sdpa8,jdbcType=INTEGER},
+      </if>
+      <if test="record.sdlnty != null" >
+        SDLNTY = #{record.sdlnty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sddrqj != null" >
+        SDDRQJ = #{record.sddrqj,jdbcType=DATE},
+      </if>
+      <if test="record.sdtrdj != null" >
+        SDTRDJ = #{record.sdtrdj,jdbcType=DATE},
+      </if>
+      <if test="record.sdpddj != null" >
+        SDPDDJ = #{record.sdpddj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sdopdj != null" >
+        SDOPDJ = #{record.sdopdj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sdaddj != null" >
+        SDADDJ = #{record.sdaddj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sdcndj != null" >
+        SDCNDJ = #{record.sdcndj,jdbcType=DATE},
+      </if>
+      <if test="record.sddgl != null" >
+        SDDGL = #{record.sddgl,jdbcType=DATE},
+      </if>
+      <if test="record.sdrsdj != null" >
+        SDRSDJ = #{record.sdrsdj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sdvr02 != null" >
+        SDVR02 = #{record.sdvr02,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdlitm != null" >
+        SDLITM = #{record.sdlitm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdlocn != null" >
+        SDLOCN = #{record.sdlocn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdlotn != null" >
+        SDLOTN = #{record.sdlotn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sddsc1 != null" >
+        SDDSC1 = #{record.sddsc1,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.sddsc2 != null" >
+        SDDSC2 = #{record.sddsc2,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.sdnxtr != null" >
+        SDNXTR = #{record.sdnxtr,jdbcType=INTEGER},
+      </if>
+      <if test="record.sdlttr != null" >
+        SDLTTR = #{record.sdlttr,jdbcType=INTEGER},
+      </if>
+      <if test="record.sdemcu != null" >
+        SDEMCU = #{record.sdemcu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdrlit != null" >
+        SDRLIT = #{record.sdrlit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdktln != null" >
+        SDKTLN = #{record.sdktln,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdcpnt != null" >
+        SDCPNT = #{record.sdcpnt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdrkit != null" >
+        SDRKIT = #{record.sdrkit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdktp != null" >
+        SDKTP = #{record.sdktp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdsrp1 != null" >
+        SDSRP1 = #{record.sdsrp1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdsrp2 != null" >
+        SDSRP2 = #{record.sdsrp2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdsrp3 != null" >
+        SDSRP3 = #{record.sdsrp3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdsrp4 != null" >
+        SDSRP4 = #{record.sdsrp4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdsrp5 != null" >
+        SDSRP5 = #{record.sdsrp5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdprp1 != null" >
+        SDPRP1 = #{record.sdprp1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdprp2 != null" >
+        SDPRP2 = #{record.sdprp2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdprp3 != null" >
+        SDPRP3 = #{record.sdprp3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdprp4 != null" >
+        SDPRP4 = #{record.sdprp4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdprp5 != null" >
+        SDPRP5 = #{record.sdprp5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sduom != null" >
+        SDUOM = #{record.sduom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sduorg != null" >
+        SDUORG = #{record.sduorg,jdbcType=NUMERIC},
+      </if>
+      <if test="record.sdsoqs != null" >
+        SDSOQS = #{record.sdsoqs,jdbcType=NUMERIC},
+      </if>
+      <if test="record.sdsobk != null" >
+        SDSOBK = #{record.sdsobk,jdbcType=NUMERIC},
+      </if>
+      <if test="record.sdsocn != null" >
+        SDSOCN = #{record.sdsocn,jdbcType=NUMERIC},
+      </if>
+      <if test="record.sdcomm != null" >
+        SDCOMM = #{record.sdcomm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sduprc != null" >
+        SDUPRC = #{record.sduprc,jdbcType=NUMERIC},
+      </if>
+      <if test="record.sdaexp != null" >
+        SDAEXP = #{record.sdaexp,jdbcType=NUMERIC},
+      </if>
+      <if test="record.sdpsn != null" >
+        SDPSN = #{record.sdpsn,jdbcType=INTEGER},
+      </if>
+      <if test="record.sdback != null" >
+        SDBACK = #{record.sdback,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdsbal != null" >
+        SDSBAL = #{record.sdsbal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdapts != null" >
+        SDAPTS = #{record.sdapts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sduom1 != null" >
+        SDUOM1 = #{record.sduom1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdpqor != null" >
+        SDPQOR = #{record.sdpqor,jdbcType=NUMERIC},
+      </if>
+      <if test="record.sduom2 != null" >
+        SDUOM2 = #{record.sduom2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdsqor != null" >
+        SDSQOR = #{record.sdsqor,jdbcType=NUMERIC},
+      </if>
+      <if test="record.sdcars != null" >
+        SDCARS = #{record.sdcars,jdbcType=NUMERIC},
+      </if>
+      <if test="record.sdcnid != null" >
+        SDCNID = #{record.sdcnid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sddeln != null" >
+        SDDELN = #{record.sddeln,jdbcType=NUMERIC},
+      </if>
+      <if test="record.sdrcd != null" >
+        SDRCD = #{record.sdrcd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdgrwt != null" >
+        SDGRWT = #{record.sdgrwt,jdbcType=NUMERIC},
+      </if>
+      <if test="record.sdglc != null" >
+        SDGLC = #{record.sdglc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdvr01 != null" >
+        SDVR01 = #{record.sdvr01,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sduser != null" >
+        SDUSER = #{record.sduser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdupmj != null" >
+        SDUPMJ = #{record.sdupmj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.jdeUpdatedate != null" >
+        JDE_UpdateDate = #{record.jdeUpdatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ktProcessdate != null" >
+        KT_ProcessDate = #{record.ktProcessdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ktFaildate != null" >
+        KT_FailDate = #{record.ktFaildate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ktRetrytimes != null" >
+        KT_RetryTimes = #{record.ktRetrytimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.ktErrorlog != null" >
+        KT_ErrorLog = #{record.ktErrorlog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isCheck != null" >
+        IS_CHECK = #{record.isCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fmsProcessDate != null" >
+        FMS_Process_Date = #{record.fmsProcessDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update OrderDetail
+    set SDKCOO = #{record.sdkcoo,jdbcType=VARCHAR},
+      SDDOCO = #{record.sddoco,jdbcType=BIGINT},
+      SDDCTO = #{record.sddcto,jdbcType=VARCHAR},
+      SDLNID = #{record.sdlnid,jdbcType=NUMERIC},
+      SDMCU = #{record.sdmcu,jdbcType=VARCHAR},
+      SDCO = #{record.sdco,jdbcType=VARCHAR},
+      SDAN8 = #{record.sdan8,jdbcType=INTEGER},
+      SDSHAN = #{record.sdshan,jdbcType=INTEGER},
+      SDPA8 = #{record.sdpa8,jdbcType=INTEGER},
+      SDLNTY = #{record.sdlnty,jdbcType=VARCHAR},
+      SDDRQJ = #{record.sddrqj,jdbcType=DATE},
+      SDTRDJ = #{record.sdtrdj,jdbcType=DATE},
+      SDPDDJ = #{record.sdpddj,jdbcType=TIMESTAMP},
+      SDOPDJ = #{record.sdopdj,jdbcType=TIMESTAMP},
+      SDADDJ = #{record.sdaddj,jdbcType=TIMESTAMP},
+      SDCNDJ = #{record.sdcndj,jdbcType=DATE},
+      SDDGL = #{record.sddgl,jdbcType=DATE},
+      SDRSDJ = #{record.sdrsdj,jdbcType=TIMESTAMP},
+      SDVR02 = #{record.sdvr02,jdbcType=VARCHAR},
+      SDLITM = #{record.sdlitm,jdbcType=VARCHAR},
+      SDLOCN = #{record.sdlocn,jdbcType=VARCHAR},
+      SDLOTN = #{record.sdlotn,jdbcType=VARCHAR},
+      SDDSC1 = #{record.sddsc1,jdbcType=NVARCHAR},
+      SDDSC2 = #{record.sddsc2,jdbcType=NVARCHAR},
+      SDNXTR = #{record.sdnxtr,jdbcType=INTEGER},
+      SDLTTR = #{record.sdlttr,jdbcType=INTEGER},
+      SDEMCU = #{record.sdemcu,jdbcType=VARCHAR},
+      SDRLIT = #{record.sdrlit,jdbcType=VARCHAR},
+      SDKTLN = #{record.sdktln,jdbcType=VARCHAR},
+      SDCPNT = #{record.sdcpnt,jdbcType=VARCHAR},
+      SDRKIT = #{record.sdrkit,jdbcType=VARCHAR},
+      SDKTP = #{record.sdktp,jdbcType=VARCHAR},
+      SDSRP1 = #{record.sdsrp1,jdbcType=VARCHAR},
+      SDSRP2 = #{record.sdsrp2,jdbcType=VARCHAR},
+      SDSRP3 = #{record.sdsrp3,jdbcType=VARCHAR},
+      SDSRP4 = #{record.sdsrp4,jdbcType=VARCHAR},
+      SDSRP5 = #{record.sdsrp5,jdbcType=VARCHAR},
+      SDPRP1 = #{record.sdprp1,jdbcType=VARCHAR},
+      SDPRP2 = #{record.sdprp2,jdbcType=VARCHAR},
+      SDPRP3 = #{record.sdprp3,jdbcType=VARCHAR},
+      SDPRP4 = #{record.sdprp4,jdbcType=VARCHAR},
+      SDPRP5 = #{record.sdprp5,jdbcType=VARCHAR},
+      SDUOM = #{record.sduom,jdbcType=VARCHAR},
+      SDUORG = #{record.sduorg,jdbcType=NUMERIC},
+      SDSOQS = #{record.sdsoqs,jdbcType=NUMERIC},
+      SDSOBK = #{record.sdsobk,jdbcType=NUMERIC},
+      SDSOCN = #{record.sdsocn,jdbcType=NUMERIC},
+      SDCOMM = #{record.sdcomm,jdbcType=VARCHAR},
+      SDUPRC = #{record.sduprc,jdbcType=NUMERIC},
+      SDAEXP = #{record.sdaexp,jdbcType=NUMERIC},
+      SDPSN = #{record.sdpsn,jdbcType=INTEGER},
+      SDBACK = #{record.sdback,jdbcType=VARCHAR},
+      SDSBAL = #{record.sdsbal,jdbcType=VARCHAR},
+      SDAPTS = #{record.sdapts,jdbcType=VARCHAR},
+      SDUOM1 = #{record.sduom1,jdbcType=VARCHAR},
+      SDPQOR = #{record.sdpqor,jdbcType=NUMERIC},
+      SDUOM2 = #{record.sduom2,jdbcType=VARCHAR},
+      SDSQOR = #{record.sdsqor,jdbcType=NUMERIC},
+      SDCARS = #{record.sdcars,jdbcType=NUMERIC},
+      SDCNID = #{record.sdcnid,jdbcType=VARCHAR},
+      SDDELN = #{record.sddeln,jdbcType=NUMERIC},
+      SDRCD = #{record.sdrcd,jdbcType=VARCHAR},
+      SDGRWT = #{record.sdgrwt,jdbcType=NUMERIC},
+      SDGLC = #{record.sdglc,jdbcType=VARCHAR},
+      SDVR01 = #{record.sdvr01,jdbcType=VARCHAR},
+      SDUSER = #{record.sduser,jdbcType=VARCHAR},
+      SDUPMJ = #{record.sdupmj,jdbcType=TIMESTAMP},
+      JDE_UpdateDate = #{record.jdeUpdatedate,jdbcType=TIMESTAMP},
+      KT_ProcessDate = #{record.ktProcessdate,jdbcType=TIMESTAMP},
+      KT_FailDate = #{record.ktFaildate,jdbcType=TIMESTAMP},
+      KT_RetryTimes = #{record.ktRetrytimes,jdbcType=INTEGER},
+      KT_ErrorLog = #{record.ktErrorlog,jdbcType=VARCHAR},
+      IS_CHECK = #{record.isCheck,jdbcType=VARCHAR},
+      FMS_Process_Date = #{record.fmsProcessDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.tup.mssql.model.OrderDetail" >
     update OrderDetail
     <set >

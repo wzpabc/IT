@@ -5,8 +5,8 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 public class DbcontextHolder extends AbstractRoutingDataSource {
 
 	public static final ThreadLocal<String> contextHolder = new ThreadLocal<String>();
-	public static final String DATA_SOURCE_ORG = "sqlServerDataSource";
-	public static final String DATA_SOURCE_DEFAULT = "mySqlDataSource";
+	public static final String DATA_SOURCE_SQLSERVER = "sqlServerDataSource";
+	public static final String DATA_SOURCE_DEFAULT_MYSQL = "mySqlDataSource";
 
 	/**
 	 * 设置当前数据源

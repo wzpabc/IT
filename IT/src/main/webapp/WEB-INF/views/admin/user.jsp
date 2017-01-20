@@ -222,12 +222,12 @@
         <form id="searchUserForm">
             <table>
                 <tr>
-                    <th>姓名:</th>
-                    <td><input name="name" placeholder="请输入用户姓名"/></td>
-                    <th>创建时间:</th>
+                    <td>&nbsp姓名:</td>
+                    <td><input name="name" placeholder="请输入用户姓名"  style="border-radius10px;"/></td>
+                    <td>创建时间:</td>
                     <td>
-                        <input name="createdateStart" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" />至
-                        <input  name="createdateEnd" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" />
+                        <input name="createdateStart" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly"  style="border-radius10px;"/> 至
+                        <input  name="createdateEnd" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly"  style="border-radius10px;"/>
                         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-magnifying-glass',plain:true" onclick="searchUserFun();">查询</a>
                         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-x-circle',plain:true" onclick="cleanUserFun();">清空</a>
                     </td>

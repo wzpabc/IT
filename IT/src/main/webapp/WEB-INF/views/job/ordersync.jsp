@@ -2,7 +2,7 @@
 <%@ include file="/commons/global.jsp" %>
 <script type="text/javascript">
     $(function () {
-        $('#orderDataGrid').datagrid({
+    	orderDataGrid = $('#orderDataGrid').datagrid({
             url: '${path }/ordersync/dataGrid',
            // url:'',
             striped: true,
@@ -55,12 +55,132 @@
             	//{width:'100',title:'未定义',field:'syedoc',sortable:false},							
             	//{width:'100',title:'未定义',field:'syedct',sortable:false},							
             	//{width:'100',title:'未定义',field:'syedbt',sortable:false},							
-            	{width:'100',title:'fmsProcessDate',field:'fmsProcessDate',sortable:false}]]
+            	{width:'100',title:'fmsProcessDate',field:'fmsProcessDate',sortable:false}]
+            ],
+            toolbar : '#orderToolbar'
         });
     });
+    function searchOrderFun() {
+        parent.$.modalDialog({
+            title : '添加',
+            width : 500,
+            height : 300,
+            //href : '${path }/user/addPage',
+            buttons : [ {
+                text : '添加',
+                handler : function() {
+                    parent.$.modalDialog.openner_dataGrid = orderDataGrid;//因为添加成功之后，需要刷新这个dataGrid，所以先预定义好
+                    var f = parent.$.modalDialog.handler.find('#searchUserForm');
+                    f.submit();
+                }
+            } ]
+        });
+    }
+    
+    var msg=""
+    
+    function searchUserFun() {
+    	// $.post("/home/ratearticle", data, RateArticleSuccess, "json");
+    	if(
+    	(document.getElementById("orderno").value!=="" 	||document.getElementById("organno").value!=="")   	
+    			
+    	){
+    		orderDataGrid.datagrid('load', $.serializeObject($('#searchForm')));
+    	}else{
+    		msg=((document.getElementById("organno").value!=="") ? a="客户编号" : a="订单编号")+'不能为空.'; 
+    		slide();
+    	}
+    	
+    }
+    function slide(){
+        $.messager.show({
+            title:'提示',
+            msg:msg,
+            timeout:3000,
+            showType:'slide'
+        });
+    }
+    function cleanUserFun() {
+    	$("#searchForm input[id^='cc']").val(''); 
+        orderDataGrid.datagrid('load', {});
+       
+    }
+    
+    function orderSelectedSyncFun(){
+    	var ids = [];
+    	var rows = orderDataGrid.datagrid('getSelections');
+    	if(rows.length<1){
+        	msg="请选中要同步记录";
+    	}else{ 
+    	 	for(var i=0; i<rows.length; i++){
+        	    ids.push({"syvr01":rows[i].syvr01});
+        	}
+        	//alert(JSON.stringify(ids));
+        	$.ajax({    
+                type: "post",   
+                url: "${path }/ordersync/update",   
+                data:JSON.stringify(ids) ,    
+                contentType: "application/json; charset=utf-8",    
+                dataType: "json",    
+                success: function (response, ifo) {    
+                    alert("success");    
+                }, error: function () {    
+                    alert("error");    
+                }    
+            })        
+        	msg="订单已同步！";
+    	}   
+    	orderDataGrid.datagrid('load', {});
+    	slide();
+    }
+    
+    function orderAllSyncFun(){
+    	// $.post("/home/ratearticle", data, RateArticleSuccess, "json");
+        orderDataGrid.datagrid('load', {});
+    	msg="所有订单已同步"; 
+    	slide();
+    }
 </script>
 <div class="easyui-layout" data-options="fit:true,border:false">
+<div data-options="region:'north',border:false" style="height: 60px; overflow: hidden;background-color: #fff">
+        <form id="searchForm">
+            <table>
+                <tr>
+                    <td>&nbsp订单编号:</td>
+                    <td><input id="orderno" name="orderno" class="easyui-textbox" placeholder="请输入订单编号"  style="border-radius10px;"/></td>
+                    <td>&nbsp客户编号:</td>
+                    <td><input id="organno" name="organno" class="easyui-textbox" placeholder="请输入客户编号"  style="border-radius10px;"/></td>
+                    <td>&nbsp订单类型：</td>
+                    <td>
+                       <input id="cc" class="easyui-combobox" name="ordertype"  data-options="valueField:'id',value:'5',textField:'text',url:'${staticPath }/ordertype'">
+                    </td>
+                 </tr>
+                 <tr>
+                  <td>&nbsp订单日期从:</td>
+                  <td>
+                  	<input name="createdateStart" class="easyui-datebox"  /> 
+                  </td>
+                  <td>&nbsp订单日期从至:</td>
+                   <td>
+                   	 <input  name="createdateEnd" class="easyui-datebox"   /> 
+                   </td>
+                     <td></td>               		  
+                </tr>
+            </table>
+        </form>
+    </div>
     <div data-options="region:'center',border:false">
         <table id="orderDataGrid" data-options="fit:true,border:false"></table>
     </div>
+</div>
+ 
+
+<div id="orderToolbar" style="display: none;">
+    <shiro:hasPermission name="/user/add">
+       <!-- <a href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'fi-plus icon-green'" onclick="searchOrderFun();" >添加</a>   --> 
+        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-magnifying-glass',plain:true" onclick="searchUserFun();">查询</a>
+        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-x-circle',plain:true" onclick="cleanUserFun();">重置</a>
+        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-link',plain:true" onclick="orderSelectedSyncFun();">同步选定订单</a>
+        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-fast-forward',plain:true" onclick="orderAllSyncFun();">同步所有订单</a>
+    </shiro:hasPermission>
 </div>

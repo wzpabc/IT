@@ -38,12 +38,85 @@
     <result column="KT_ErrorLog" property="ktErrorlog" jdbcType="VARCHAR" />
     <result column="FMS_Process_Date" property="fmsProcessDate" jdbcType="TIMESTAMP" />
   </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
   <sql id="Base_Column_List" >
     SHKCOO, SHDOCO, SHDCTO, SHMCU, SHCO, SHAN8, SHSHAN, SHTRDJ, SHDRQJ, SHPDDJ, SHVR01, 
     SHDEL1, SHDEL2, SHURCD, SHURDT, SHURAT, SHURAB, SHURRF, SHUPMJ, SAMLNM, SAADD1, SAADD2, 
     SAADD3, SAADD4, SHMLNM, SHADD1, SHADD2, SHADD3, SHADD4, JDE_UpdateDate, KT_ProcessDate, 
     KT_FailDate, KT_RetryTimes, KT_ErrorLog, FMS_Process_Date
   </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tup.mssql.model.OrderHeaderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from OrderHeader
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.tup.mssql.model.OrderHeaderKey" >
     select 
     <include refid="Base_Column_List" />
@@ -57,6 +130,12 @@
     where SHKCOO = #{shkcoo,jdbcType=VARCHAR}
       and SHDOCO = #{shdoco,jdbcType=INTEGER}
       and SHDCTO = #{shdcto,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tup.mssql.model.OrderHeaderExample" >
+    delete from OrderHeader
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
   </delete>
   <insert id="insert" parameterType="com.tup.mssql.model.OrderHeader" >
     insert into OrderHeader (SHKCOO, SHDOCO, SHDCTO, 
@@ -301,6 +380,166 @@
       </if>
     </trim>
   </insert>
+  <select id="countByExample" parameterType="com.tup.mssql.model.OrderHeaderExample" resultType="java.lang.Integer" >
+    select count(*) from OrderHeader
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update OrderHeader
+    <set >
+      <if test="record.shkcoo != null" >
+        SHKCOO = #{record.shkcoo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shdoco != null" >
+        SHDOCO = #{record.shdoco,jdbcType=INTEGER},
+      </if>
+      <if test="record.shdcto != null" >
+        SHDCTO = #{record.shdcto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shmcu != null" >
+        SHMCU = #{record.shmcu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shco != null" >
+        SHCO = #{record.shco,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shan8 != null" >
+        SHAN8 = #{record.shan8,jdbcType=INTEGER},
+      </if>
+      <if test="record.shshan != null" >
+        SHSHAN = #{record.shshan,jdbcType=INTEGER},
+      </if>
+      <if test="record.shtrdj != null" >
+        SHTRDJ = #{record.shtrdj,jdbcType=DATE},
+      </if>
+      <if test="record.shdrqj != null" >
+        SHDRQJ = #{record.shdrqj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shpddj != null" >
+        SHPDDJ = #{record.shpddj,jdbcType=DATE},
+      </if>
+      <if test="record.shvr01 != null" >
+        SHVR01 = #{record.shvr01,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shdel1 != null" >
+        SHDEL1 = #{record.shdel1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shdel2 != null" >
+        SHDEL2 = #{record.shdel2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shurcd != null" >
+        SHURCD = #{record.shurcd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shurdt != null" >
+        SHURDT = #{record.shurdt,jdbcType=DATE},
+      </if>
+      <if test="record.shurat != null" >
+        SHURAT = #{record.shurat,jdbcType=NUMERIC},
+      </if>
+      <if test="record.shurab != null" >
+        SHURAB = #{record.shurab,jdbcType=NUMERIC},
+      </if>
+      <if test="record.shurrf != null" >
+        SHURRF = #{record.shurrf,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shupmj != null" >
+        SHUPMJ = #{record.shupmj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.samlnm != null" >
+        SAMLNM = #{record.samlnm,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.saadd1 != null" >
+        SAADD1 = #{record.saadd1,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.saadd2 != null" >
+        SAADD2 = #{record.saadd2,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.saadd3 != null" >
+        SAADD3 = #{record.saadd3,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.saadd4 != null" >
+        SAADD4 = #{record.saadd4,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.shmlnm != null" >
+        SHMLNM = #{record.shmlnm,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.shadd1 != null" >
+        SHADD1 = #{record.shadd1,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.shadd2 != null" >
+        SHADD2 = #{record.shadd2,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.shadd3 != null" >
+        SHADD3 = #{record.shadd3,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.shadd4 != null" >
+        SHADD4 = #{record.shadd4,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.jdeUpdatedate != null" >
+        JDE_UpdateDate = #{record.jdeUpdatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ktProcessdate != null" >
+        KT_ProcessDate = #{record.ktProcessdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ktFaildate != null" >
+        KT_FailDate = #{record.ktFaildate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ktRetrytimes != null" >
+        KT_RetryTimes = #{record.ktRetrytimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.ktErrorlog != null" >
+        KT_ErrorLog = #{record.ktErrorlog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fmsProcessDate != null" >
+        FMS_Process_Date = #{record.fmsProcessDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update OrderHeader
+    set SHKCOO = #{record.shkcoo,jdbcType=VARCHAR},
+      SHDOCO = #{record.shdoco,jdbcType=INTEGER},
+      SHDCTO = #{record.shdcto,jdbcType=VARCHAR},
+      SHMCU = #{record.shmcu,jdbcType=VARCHAR},
+      SHCO = #{record.shco,jdbcType=VARCHAR},
+      SHAN8 = #{record.shan8,jdbcType=INTEGER},
+      SHSHAN = #{record.shshan,jdbcType=INTEGER},
+      SHTRDJ = #{record.shtrdj,jdbcType=DATE},
+      SHDRQJ = #{record.shdrqj,jdbcType=TIMESTAMP},
+      SHPDDJ = #{record.shpddj,jdbcType=DATE},
+      SHVR01 = #{record.shvr01,jdbcType=VARCHAR},
+      SHDEL1 = #{record.shdel1,jdbcType=VARCHAR},
+      SHDEL2 = #{record.shdel2,jdbcType=VARCHAR},
+      SHURCD = #{record.shurcd,jdbcType=VARCHAR},
+      SHURDT = #{record.shurdt,jdbcType=DATE},
+      SHURAT = #{record.shurat,jdbcType=NUMERIC},
+      SHURAB = #{record.shurab,jdbcType=NUMERIC},
+      SHURRF = #{record.shurrf,jdbcType=VARCHAR},
+      SHUPMJ = #{record.shupmj,jdbcType=TIMESTAMP},
+      SAMLNM = #{record.samlnm,jdbcType=NVARCHAR},
+      SAADD1 = #{record.saadd1,jdbcType=NVARCHAR},
+      SAADD2 = #{record.saadd2,jdbcType=NVARCHAR},
+      SAADD3 = #{record.saadd3,jdbcType=NVARCHAR},
+      SAADD4 = #{record.saadd4,jdbcType=NVARCHAR},
+      SHMLNM = #{record.shmlnm,jdbcType=NVARCHAR},
+      SHADD1 = #{record.shadd1,jdbcType=NVARCHAR},
+      SHADD2 = #{record.shadd2,jdbcType=NVARCHAR},
+      SHADD3 = #{record.shadd3,jdbcType=NVARCHAR},
+      SHADD4 = #{record.shadd4,jdbcType=NVARCHAR},
+      JDE_UpdateDate = #{record.jdeUpdatedate,jdbcType=TIMESTAMP},
+      KT_ProcessDate = #{record.ktProcessdate,jdbcType=TIMESTAMP},
+      KT_FailDate = #{record.ktFaildate,jdbcType=TIMESTAMP},
+      KT_RetryTimes = #{record.ktRetrytimes,jdbcType=INTEGER},
+      KT_ErrorLog = #{record.ktErrorlog,jdbcType=VARCHAR},
+      FMS_Process_Date = #{record.fmsProcessDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.tup.mssql.model.OrderHeader" >
     update OrderHeader
     <set >

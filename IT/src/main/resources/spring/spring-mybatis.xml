@@ -116,7 +116,20 @@
         <property name="sqlSessionFactoryBeanName" value="MSsqlSessionFactory" />  
     </bean>
     
-    
+      <!-- 事务管理 -->
+    <bean id="transactionManager_sqlserver" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="sqlServerDataSource"></property>
+    </bean> 
+    <!-- 事务管理 属性 -->
+    <tx:advice id="transactionAdvice" transaction-manager="transactionManager_sqlserver">
+        <tx:attributes>
+            <tx:method name="select*" propagation="REQUIRED" read-only="true" />
+            <tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="*" propagation="REQUIRED" />
+        </tx:attributes>
+    </tx:advice>
       
     
     <!-- 配置切面 -->

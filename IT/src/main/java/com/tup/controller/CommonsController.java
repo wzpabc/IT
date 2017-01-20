@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.tup.commons.utils.CaptchaUtils;
 
@@ -35,11 +36,20 @@ public class CommonsController {
 	public String mailhome() {
 		return "/mail/home";
 	}
+    
+    @PostMapping("/ordertype")
+   	public String jdestatus() {
+   		return "/data/ordertype";
+   	}
     /**
      * 图形验证码
      */
+    
+  
     @GetMapping("captcha.jpg")
     public void captcha(HttpServletRequest request, HttpServletResponse response) {
         CaptchaUtils.generate(request, response);
     }
+    
+    
 }

@@ -47,6 +47,64 @@
     <result column="KT_ErrorLog" property="ktErrorlog" jdbcType="VARCHAR" />
     <result column="FMS_Process_Date" property="fmsProcessDate" jdbcType="TIMESTAMP" />
   </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
   <sql id="Base_Column_List" >
     LIITM, LIMCU, LILOCN, LILOTN, LIPBIN, LIGLPT, LIPQOH, LIPBCK, LIPREQ, LIQWBO, LIHCOM, 
     LIPCOM, LIFCOM, LIFUN1, LIQOWO, LIQTTR, LILOTS, LILRCJ, LIOT1P, LIOT2P, LIOT1A, LIQTIN, 
@@ -54,6 +112,21 @@
     LIURAT, LIURAB, LIURRF, LIUSER, LIUPMJ, JDE_UpdateDate, KT_ProcessDate, KT_FailDate, 
     KT_RetryTimes, KT_ErrorLog, FMS_Process_Date
   </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tup.mssql.model.InventoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from Inventory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.tup.mssql.model.InventoryKey" >
     select 
     <include refid="Base_Column_List" />
@@ -69,6 +142,12 @@
       and LIMCU = #{limcu,jdbcType=VARCHAR}
       and LILOCN = #{lilocn,jdbcType=VARCHAR}
       and LILOTN = #{lilotn,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tup.mssql.model.InventoryExample" >
+    delete from Inventory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
   </delete>
   <insert id="insert" parameterType="com.tup.mssql.model.Inventory" >
     insert into Inventory (LIITM, LIMCU, LILOCN, 
@@ -373,6 +452,202 @@
       </if>
     </trim>
   </insert>
+  <select id="countByExample" parameterType="com.tup.mssql.model.InventoryExample" resultType="java.lang.Integer" >
+    select count(*) from Inventory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update Inventory
+    <set >
+      <if test="record.liitm != null" >
+        LIITM = #{record.liitm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.limcu != null" >
+        LIMCU = #{record.limcu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lilocn != null" >
+        LILOCN = #{record.lilocn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lilotn != null" >
+        LILOTN = #{record.lilotn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lipbin != null" >
+        LIPBIN = #{record.lipbin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.liglpt != null" >
+        LIGLPT = #{record.liglpt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lipqoh != null" >
+        LIPQOH = #{record.lipqoh,jdbcType=NUMERIC},
+      </if>
+      <if test="record.lipbck != null" >
+        LIPBCK = #{record.lipbck,jdbcType=NUMERIC},
+      </if>
+      <if test="record.lipreq != null" >
+        LIPREQ = #{record.lipreq,jdbcType=NUMERIC},
+      </if>
+      <if test="record.liqwbo != null" >
+        LIQWBO = #{record.liqwbo,jdbcType=NUMERIC},
+      </if>
+      <if test="record.lihcom != null" >
+        LIHCOM = #{record.lihcom,jdbcType=NUMERIC},
+      </if>
+      <if test="record.lipcom != null" >
+        LIPCOM = #{record.lipcom,jdbcType=NUMERIC},
+      </if>
+      <if test="record.lifcom != null" >
+        LIFCOM = #{record.lifcom,jdbcType=NUMERIC},
+      </if>
+      <if test="record.lifun1 != null" >
+        LIFUN1 = #{record.lifun1,jdbcType=NUMERIC},
+      </if>
+      <if test="record.liqowo != null" >
+        LIQOWO = #{record.liqowo,jdbcType=NUMERIC},
+      </if>
+      <if test="record.liqttr != null" >
+        LIQTTR = #{record.liqttr,jdbcType=NUMERIC},
+      </if>
+      <if test="record.lilots != null" >
+        LILOTS = #{record.lilots,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lilrcj != null" >
+        LILRCJ = #{record.lilrcj,jdbcType=DATE},
+      </if>
+      <if test="record.liot1p != null" >
+        LIOT1P = #{record.liot1p,jdbcType=NUMERIC},
+      </if>
+      <if test="record.liot2p != null" >
+        LIOT2P = #{record.liot2p,jdbcType=NUMERIC},
+      </if>
+      <if test="record.liot1a != null" >
+        LIOT1A = #{record.liot1a,jdbcType=NUMERIC},
+      </if>
+      <if test="record.liqtin != null" >
+        LIQTIN = #{record.liqtin,jdbcType=NUMERIC},
+      </if>
+      <if test="record.liqto1 != null" >
+        LIQTO1 = #{record.liqto1,jdbcType=NUMERIC},
+      </if>
+      <if test="record.liqto2 != null" >
+        LIQTO2 = #{record.liqto2,jdbcType=NUMERIC},
+      </if>
+      <if test="record.liqonl != null" >
+        LIQONL = #{record.liqonl,jdbcType=NUMERIC},
+      </if>
+      <if test="record.liqtri != null" >
+        LIQTRI = #{record.liqtri,jdbcType=NUMERIC},
+      </if>
+      <if test="record.liqtro != null" >
+        LIQTRO = #{record.liqtro,jdbcType=NUMERIC},
+      </if>
+      <if test="record.lincdj != null" >
+        LINCDJ = #{record.lincdj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.liqty1 != null" >
+        LIQTY1 = #{record.liqty1,jdbcType=NUMERIC},
+      </if>
+      <if test="record.liqty2 != null" >
+        LIQTY2 = #{record.liqty2,jdbcType=NUMERIC},
+      </if>
+      <if test="record.licsid != null" >
+        LICSID = #{record.licsid,jdbcType=NUMERIC},
+      </if>
+      <if test="record.liurcd != null" >
+        LIURCD = #{record.liurcd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.liurdt != null" >
+        LIURDT = #{record.liurdt,jdbcType=DATE},
+      </if>
+      <if test="record.liurat != null" >
+        LIURAT = #{record.liurat,jdbcType=NUMERIC},
+      </if>
+      <if test="record.liurab != null" >
+        LIURAB = #{record.liurab,jdbcType=NUMERIC},
+      </if>
+      <if test="record.liurrf != null" >
+        LIURRF = #{record.liurrf,jdbcType=VARCHAR},
+      </if>
+      <if test="record.liuser != null" >
+        LIUSER = #{record.liuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.liupmj != null" >
+        LIUPMJ = #{record.liupmj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.jdeUpdatedate != null" >
+        JDE_UpdateDate = #{record.jdeUpdatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ktProcessdate != null" >
+        KT_ProcessDate = #{record.ktProcessdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ktFaildate != null" >
+        KT_FailDate = #{record.ktFaildate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ktRetrytimes != null" >
+        KT_RetryTimes = #{record.ktRetrytimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.ktErrorlog != null" >
+        KT_ErrorLog = #{record.ktErrorlog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fmsProcessDate != null" >
+        FMS_Process_Date = #{record.fmsProcessDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update Inventory
+    set LIITM = #{record.liitm,jdbcType=VARCHAR},
+      LIMCU = #{record.limcu,jdbcType=VARCHAR},
+      LILOCN = #{record.lilocn,jdbcType=VARCHAR},
+      LILOTN = #{record.lilotn,jdbcType=VARCHAR},
+      LIPBIN = #{record.lipbin,jdbcType=VARCHAR},
+      LIGLPT = #{record.liglpt,jdbcType=VARCHAR},
+      LIPQOH = #{record.lipqoh,jdbcType=NUMERIC},
+      LIPBCK = #{record.lipbck,jdbcType=NUMERIC},
+      LIPREQ = #{record.lipreq,jdbcType=NUMERIC},
+      LIQWBO = #{record.liqwbo,jdbcType=NUMERIC},
+      LIHCOM = #{record.lihcom,jdbcType=NUMERIC},
+      LIPCOM = #{record.lipcom,jdbcType=NUMERIC},
+      LIFCOM = #{record.lifcom,jdbcType=NUMERIC},
+      LIFUN1 = #{record.lifun1,jdbcType=NUMERIC},
+      LIQOWO = #{record.liqowo,jdbcType=NUMERIC},
+      LIQTTR = #{record.liqttr,jdbcType=NUMERIC},
+      LILOTS = #{record.lilots,jdbcType=VARCHAR},
+      LILRCJ = #{record.lilrcj,jdbcType=DATE},
+      LIOT1P = #{record.liot1p,jdbcType=NUMERIC},
+      LIOT2P = #{record.liot2p,jdbcType=NUMERIC},
+      LIOT1A = #{record.liot1a,jdbcType=NUMERIC},
+      LIQTIN = #{record.liqtin,jdbcType=NUMERIC},
+      LIQTO1 = #{record.liqto1,jdbcType=NUMERIC},
+      LIQTO2 = #{record.liqto2,jdbcType=NUMERIC},
+      LIQONL = #{record.liqonl,jdbcType=NUMERIC},
+      LIQTRI = #{record.liqtri,jdbcType=NUMERIC},
+      LIQTRO = #{record.liqtro,jdbcType=NUMERIC},
+      LINCDJ = #{record.lincdj,jdbcType=TIMESTAMP},
+      LIQTY1 = #{record.liqty1,jdbcType=NUMERIC},
+      LIQTY2 = #{record.liqty2,jdbcType=NUMERIC},
+      LICSID = #{record.licsid,jdbcType=NUMERIC},
+      LIURCD = #{record.liurcd,jdbcType=VARCHAR},
+      LIURDT = #{record.liurdt,jdbcType=DATE},
+      LIURAT = #{record.liurat,jdbcType=NUMERIC},
+      LIURAB = #{record.liurab,jdbcType=NUMERIC},
+      LIURRF = #{record.liurrf,jdbcType=VARCHAR},
+      LIUSER = #{record.liuser,jdbcType=VARCHAR},
+      LIUPMJ = #{record.liupmj,jdbcType=TIMESTAMP},
+      JDE_UpdateDate = #{record.jdeUpdatedate,jdbcType=TIMESTAMP},
+      KT_ProcessDate = #{record.ktProcessdate,jdbcType=TIMESTAMP},
+      KT_FailDate = #{record.ktFaildate,jdbcType=TIMESTAMP},
+      KT_RetryTimes = #{record.ktRetrytimes,jdbcType=INTEGER},
+      KT_ErrorLog = #{record.ktErrorlog,jdbcType=VARCHAR},
+      FMS_Process_Date = #{record.fmsProcessDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.tup.mssql.model.Inventory" >
     update Inventory
     <set >

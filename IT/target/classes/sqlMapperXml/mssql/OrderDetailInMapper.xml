@@ -47,6 +47,64 @@
     <result column="SZEDBT" property="szedbt" jdbcType="VARCHAR" />
     <result column="FMS_Process_Date" property="fmsProcessDate" jdbcType="TIMESTAMP" />
   </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
   <sql id="Base_Column_List" >
     ID, HeaderID, SZKCOO, SZDCTO, SZLNID, SZMCU, STMCU, SZCO, SZAN8, SZSHAN, SZTRDJ, 
     SZDRQJ, SZPDDJ, SZDRQT, SZVR01, SZVR02, SZGLC, SZURCD, SZURDT, SZURAT, SZURAB, SZURRF, 
@@ -54,6 +112,21 @@
     JDE_InsertDate, JDE_UpdateDate, JDE_OrderNumber, JDE_ProccessLog, KT_ProcessDate, 
     SZDOCO, EDIFlag, SZEKCO, SZEDOC, SZEDCT, SZEDBT, FMS_Process_Date
   </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tup.mssql.model.OrderDetailInExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from orderdetail_in
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
@@ -63,6 +136,12 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from orderdetail_in
     where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tup.mssql.model.OrderDetailInExample" >
+    delete from orderdetail_in
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
   </delete>
   <insert id="insert" parameterType="com.tup.mssql.model.OrderDetailIn" >
     insert into orderdetail_in (ID, HeaderID, SZKCOO, 
@@ -367,6 +446,202 @@
       </if>
     </trim>
   </insert>
+  <select id="countByExample" parameterType="com.tup.mssql.model.OrderDetailInExample" resultType="java.lang.Integer" >
+    select count(*) from orderdetail_in
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update orderdetail_in
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.headerid != null" >
+        HeaderID = #{record.headerid,jdbcType=CHAR},
+      </if>
+      <if test="record.szkcoo != null" >
+        SZKCOO = #{record.szkcoo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szdcto != null" >
+        SZDCTO = #{record.szdcto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szlnid != null" >
+        SZLNID = #{record.szlnid,jdbcType=NUMERIC},
+      </if>
+      <if test="record.szmcu != null" >
+        SZMCU = #{record.szmcu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stmcu != null" >
+        STMCU = #{record.stmcu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szco != null" >
+        SZCO = #{record.szco,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szan8 != null" >
+        SZAN8 = #{record.szan8,jdbcType=INTEGER},
+      </if>
+      <if test="record.szshan != null" >
+        SZSHAN = #{record.szshan,jdbcType=INTEGER},
+      </if>
+      <if test="record.sztrdj != null" >
+        SZTRDJ = #{record.sztrdj,jdbcType=DATE},
+      </if>
+      <if test="record.szdrqj != null" >
+        SZDRQJ = #{record.szdrqj,jdbcType=DATE},
+      </if>
+      <if test="record.szpddj != null" >
+        SZPDDJ = #{record.szpddj,jdbcType=DATE},
+      </if>
+      <if test="record.szdrqt != null" >
+        SZDRQT = #{record.szdrqt,jdbcType=INTEGER},
+      </if>
+      <if test="record.szvr01 != null" >
+        SZVR01 = #{record.szvr01,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szvr02 != null" >
+        SZVR02 = #{record.szvr02,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szglc != null" >
+        SZGLC = #{record.szglc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szurcd != null" >
+        SZURCD = #{record.szurcd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szurdt != null" >
+        SZURDT = #{record.szurdt,jdbcType=DATE},
+      </if>
+      <if test="record.szurat != null" >
+        SZURAT = #{record.szurat,jdbcType=NUMERIC},
+      </if>
+      <if test="record.szurab != null" >
+        SZURAB = #{record.szurab,jdbcType=INTEGER},
+      </if>
+      <if test="record.szurrf != null" >
+        SZURRF = #{record.szurrf,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szasn != null" >
+        SZASN = #{record.szasn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szeuse != null" >
+        SZEUSE = #{record.szeuse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szlitm != null" >
+        SZLITM = #{record.szlitm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szprov != null" >
+        SZPROV = #{record.szprov,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szuprc != null" >
+        SZUPRC = #{record.szuprc,jdbcType=NUMERIC},
+      </if>
+      <if test="record.szaexp != null" >
+        SZAEXP = #{record.szaexp,jdbcType=NUMERIC},
+      </if>
+      <if test="record.szuorg != null" >
+        SZUORG = #{record.szuorg,jdbcType=NUMERIC},
+      </if>
+      <if test="record.szrcd != null" >
+        SZRCD = #{record.szrcd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szuom != null" >
+        SZUOM = #{record.szuom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jdeStatus != null" >
+        JDE_Status = #{record.jdeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jdeInsertdate != null" >
+        JDE_InsertDate = #{record.jdeInsertdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.jdeUpdatedate != null" >
+        JDE_UpdateDate = #{record.jdeUpdatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.jdeOrdernumber != null" >
+        JDE_OrderNumber = #{record.jdeOrdernumber,jdbcType=BIGINT},
+      </if>
+      <if test="record.jdeProccesslog != null" >
+        JDE_ProccessLog = #{record.jdeProccesslog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ktProcessdate != null" >
+        KT_ProcessDate = #{record.ktProcessdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.szdoco != null" >
+        SZDOCO = #{record.szdoco,jdbcType=BIGINT},
+      </if>
+      <if test="record.ediflag != null" >
+        EDIFlag = #{record.ediflag,jdbcType=INTEGER},
+      </if>
+      <if test="record.szekco != null" >
+        SZEKCO = #{record.szekco,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szedoc != null" >
+        SZEDOC = #{record.szedoc,jdbcType=NUMERIC},
+      </if>
+      <if test="record.szedct != null" >
+        SZEDCT = #{record.szedct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szedbt != null" >
+        SZEDBT = #{record.szedbt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fmsProcessDate != null" >
+        FMS_Process_Date = #{record.fmsProcessDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update orderdetail_in
+    set ID = #{record.id,jdbcType=CHAR},
+      HeaderID = #{record.headerid,jdbcType=CHAR},
+      SZKCOO = #{record.szkcoo,jdbcType=VARCHAR},
+      SZDCTO = #{record.szdcto,jdbcType=VARCHAR},
+      SZLNID = #{record.szlnid,jdbcType=NUMERIC},
+      SZMCU = #{record.szmcu,jdbcType=VARCHAR},
+      STMCU = #{record.stmcu,jdbcType=VARCHAR},
+      SZCO = #{record.szco,jdbcType=VARCHAR},
+      SZAN8 = #{record.szan8,jdbcType=INTEGER},
+      SZSHAN = #{record.szshan,jdbcType=INTEGER},
+      SZTRDJ = #{record.sztrdj,jdbcType=DATE},
+      SZDRQJ = #{record.szdrqj,jdbcType=DATE},
+      SZPDDJ = #{record.szpddj,jdbcType=DATE},
+      SZDRQT = #{record.szdrqt,jdbcType=INTEGER},
+      SZVR01 = #{record.szvr01,jdbcType=VARCHAR},
+      SZVR02 = #{record.szvr02,jdbcType=VARCHAR},
+      SZGLC = #{record.szglc,jdbcType=VARCHAR},
+      SZURCD = #{record.szurcd,jdbcType=VARCHAR},
+      SZURDT = #{record.szurdt,jdbcType=DATE},
+      SZURAT = #{record.szurat,jdbcType=NUMERIC},
+      SZURAB = #{record.szurab,jdbcType=INTEGER},
+      SZURRF = #{record.szurrf,jdbcType=VARCHAR},
+      SZASN = #{record.szasn,jdbcType=VARCHAR},
+      SZEUSE = #{record.szeuse,jdbcType=VARCHAR},
+      SZLITM = #{record.szlitm,jdbcType=VARCHAR},
+      SZPROV = #{record.szprov,jdbcType=VARCHAR},
+      SZUPRC = #{record.szuprc,jdbcType=NUMERIC},
+      SZAEXP = #{record.szaexp,jdbcType=NUMERIC},
+      SZUORG = #{record.szuorg,jdbcType=NUMERIC},
+      SZRCD = #{record.szrcd,jdbcType=VARCHAR},
+      SZUOM = #{record.szuom,jdbcType=VARCHAR},
+      JDE_Status = #{record.jdeStatus,jdbcType=VARCHAR},
+      JDE_InsertDate = #{record.jdeInsertdate,jdbcType=TIMESTAMP},
+      JDE_UpdateDate = #{record.jdeUpdatedate,jdbcType=TIMESTAMP},
+      JDE_OrderNumber = #{record.jdeOrdernumber,jdbcType=BIGINT},
+      JDE_ProccessLog = #{record.jdeProccesslog,jdbcType=VARCHAR},
+      KT_ProcessDate = #{record.ktProcessdate,jdbcType=TIMESTAMP},
+      SZDOCO = #{record.szdoco,jdbcType=BIGINT},
+      EDIFlag = #{record.ediflag,jdbcType=INTEGER},
+      SZEKCO = #{record.szekco,jdbcType=VARCHAR},
+      SZEDOC = #{record.szedoc,jdbcType=NUMERIC},
+      SZEDCT = #{record.szedct,jdbcType=VARCHAR},
+      SZEDBT = #{record.szedbt,jdbcType=VARCHAR},
+      FMS_Process_Date = #{record.fmsProcessDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.tup.mssql.model.OrderDetailIn" >
     update orderdetail_in
     <set >

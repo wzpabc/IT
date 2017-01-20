@@ -33,14 +33,14 @@
         </javaClientGenerator>
         <!--生成对应表及类名-->
         
-     <table tableName="OrderHeader" domainObjectName="OrderHeader" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-			<table tableName="Inventory" domainObjectName="Inventory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-			<table tableName="OrderDetail" domainObjectName="OrderDetail" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="OrderHeader" domainObjectName="OrderHeader" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+		<table tableName="Inventory" domainObjectName="Inventory" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+		<table tableName="OrderDetail" domainObjectName="OrderDetail" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+		
+		<table tableName="orderdetail_In" domainObjectName='OrderDetailIn' enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+		
+		<table tableName="orderheader_In" domainObjectName='OrderHeaderInVo' enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+		
   
-       <table tableName="orderdetail_In" domainObjectName='OrderDetailIn' enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		<!-- 
-		<table tableName="orderheader_In" domainObjectName='OrderHeaderIn' enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		 -->
-         
     </context>
 </generatorConfiguration>
