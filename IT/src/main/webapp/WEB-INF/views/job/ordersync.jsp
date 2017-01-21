@@ -82,7 +82,7 @@
     function searchUserFun() {
     	// $.post("/home/ratearticle", data, RateArticleSuccess, "json");
     	if(
-    	(document.getElementById("orderno").value!=="" 	||document.getElementById("organno").value!=="")   	
+    	(1==1||document.getElementById("orderno").value!=="" 	||document.getElementById("organno").value!=="")   	
     			
     	){
     		orderDataGrid.datagrid('load', $.serializeObject($('#searchForm')));
@@ -152,7 +152,7 @@
                     <td><input id="organno" name="organno" class="easyui-textbox" placeholder="请输入客户编号"  style="border-radius10px;"/></td>
                     <td>&nbsp订单类型：</td>
                     <td>
-                       <input id="cc" class="easyui-combobox" name="ordertype"  data-options="valueField:'id',value:'5',textField:'text',url:'${staticPath }/ordertype'">
+                       <input id="cc" class="easyui-combobox" name="ordertype"  data-options="valueField:'id',value:'ALL',textField:'text',url:'${staticPath }/ordertype'">
                     </td>
                  </tr>
                  <tr>

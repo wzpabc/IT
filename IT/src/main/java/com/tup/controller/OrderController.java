@@ -24,23 +24,7 @@ import com.tup.service.IOrderService;
 public class OrderController  {
 	@Autowired
 	private IOrderService iOrderService;
-
-	/* (non-Javadoc)
-	 * @see com.tup.controller.SDFDSF#dataGrid(java.lang.Integer, java.lang.Integer, java.lang.String)
-	 */
-//	@PostMapping("/dataGrid") 
-//	@ResponseBody
-//	public PageInfo dataGrid(Integer page, Integer rows,String orderno) {
-//		PageInfo pageInfo = new PageInfo(page, rows);
-//		Map<String, Object> condition = new HashMap<String, Object>();
-//		pageInfo.setCondition(condition);
-//		DbcontextHolder.setDbType(DbcontextHolder.DATA_SOURCE_SQLSERVER);// 切换数据源
-//		iOrderService.selectDataGrid(pageInfo);
-//		//pageInfo.setTotal(111);
-//		DbcontextHolder.clearDbType();// 恢复默认数据源
-//		return pageInfo;
-//	}
-	
+ 
 	@PostMapping("/dataGrid") 
 	@ResponseBody
 	public PageInfo dataGrid( RequestOrderParamHelper order) {

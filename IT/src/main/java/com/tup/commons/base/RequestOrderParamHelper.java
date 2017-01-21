@@ -31,13 +31,13 @@ public class RequestOrderParamHelper {
 		this.rows = rows;
 	}
 	public String getOrderno() {
-		return orderno;
+		return orderno.trim();
 	}
 	public void setOrderno(String orderno) {
 		this.orderno = orderno;
 	}
 	public String getOrganno() {
-		return organno;
+		return organno.trim();
 	}
 	public void setOrganno(String organno) {
 		this.organno = organno;
