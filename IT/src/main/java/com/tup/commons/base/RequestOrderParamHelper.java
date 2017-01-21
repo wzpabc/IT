@@ -3,59 +3,69 @@ package com.tup.commons.base;
 import java.util.Date;
 
 public class RequestOrderParamHelper {
-	public String orderno;
-	public String organno;
-	public String ordertype;
-	public String jdestatus;
-	public Date createdateStart;
-	public Date createdateEnd;
-
-	public String getOrderno() {
-		return orderno;
-	}
-
-	public void setOrderno(String orderno) {
-		this.orderno = orderno;
-	}
-
-	public String getOrganno() {
-		return organno;
-	}
-
-	public void setOrganno(String organno) {
-		this.organno = organno;
-	}
-
-	public String getOrdertype() {
-		return ordertype;
-	}
-
-	public void setOrdertype(String ordertype) {
-		this.ordertype = ordertype;
-	}
-
+	private Integer page;
+	private Integer rows;
+	private String orderno;
+	private String organno;
+	private String ordertype;
+	private String jdestatus;
+	private String createdateStart;
+	private String createdateEnd;
+	
 	public String getJdestatus() {
 		return jdestatus;
 	}
-
 	public void setJdestatus(String jdestatus) {
 		this.jdestatus = jdestatus;
 	}
-
-	public Date getCreatedateStart() {
+	public Integer getPage() {
+		return page;
+	}
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+	public Integer getRows() {
+		return rows;
+	}
+	public void setRows(Integer rows) {
+		this.rows = rows;
+	}
+	public String getOrderno() {
+		return orderno;
+	}
+	public void setOrderno(String orderno) {
+		this.orderno = orderno;
+	}
+	public String getOrganno() {
+		return organno;
+	}
+	public void setOrganno(String organno) {
+		this.organno = organno;
+	}
+	public String getOrdertype() {
+		return ordertype;
+	}
+	public void setOrdertype(String ordertype) {
+		this.ordertype = ordertype;
+	}
+	public String getCreatedateStart() {
 		return createdateStart;
 	}
-
-	public void setCreatedateStart(Date createdateStart) {
+	public void setCreatedateStart(String createdateStart) {
 		this.createdateStart = createdateStart;
 	}
-
-	public Date getCreatedateEnd() {
+	public String getCreatedateEnd() {
 		return createdateEnd;
 	}
-
-	public void setCreatedateEnd(Date createdateEnd) {
+	public void setCreatedateEnd(String createdateEnd) {
 		this.createdateEnd = createdateEnd;
 	}
+	@Override
+	public String toString() {
+		return "RequestOrderParamHelper [page=" + page + ", rows=" + rows + ", orderno=" + orderno + ", organno="
+				+ organno + ", ordertype=" + ordertype + ", createdateStart=" + createdateStart + ", createdateEnd="
+				+ createdateEnd + "]";
+	}
+ 
 
 }

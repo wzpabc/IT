@@ -1,9 +1,10 @@
 package com.tup.mssql.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class OrderHeaderInVo {
+public class OrderHeaderInVo implements Serializable{
     private String id;
 
     private String sykcoo;

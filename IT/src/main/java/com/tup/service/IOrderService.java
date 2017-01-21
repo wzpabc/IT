@@ -9,6 +9,8 @@ import com.tup.service.impl.OrderServiceImpl;
 public interface IOrderService extends IService<OrderHeaderIn> {
 	void selectDataGrid(PageInfo pageInfo);
 
+	void selectDataGridVo(PageInfo pageInfo);
+
 	OrderServiceImpl setHelper(RequestOrderParamHelper helper);
 
 }

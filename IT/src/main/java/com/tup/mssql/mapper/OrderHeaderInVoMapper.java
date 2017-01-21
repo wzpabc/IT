@@ -1,22 +1,26 @@
 package com.tup.mssql.mapper;
 
-import com.tup.mssql.model.OrderHeaderInVo;
-import com.tup.mssql.model.OrderHeaderInVoExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
-public interface OrderHeaderInVoMapper {
-    int countByExample(OrderHeaderInVoExample example);
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.tup.mssql.model.OrderHeaderInVo;
+import com.tup.mssql.model.OrderHeaderInVoExample;
 
-    int deleteByExample(OrderHeaderInVoExample example);
+public interface OrderHeaderInVoMapper extends BaseMapper<OrderHeaderInVo> {
+	int countByExample(OrderHeaderInVoExample example);
 
-    int insert(OrderHeaderInVo record);
+	int deleteByExample(OrderHeaderInVoExample example);
 
-    int insertSelective(OrderHeaderInVo record);
+	Integer insert(OrderHeaderInVo entity);
 
-    List<OrderHeaderInVo> selectByExample(OrderHeaderInVoExample example);
+	int insertSelective(OrderHeaderInVo record);
 
-    int updateByExampleSelective(@Param("record") OrderHeaderInVo record, @Param("example") OrderHeaderInVoExample example);
+	List<OrderHeaderInVo> selectByExample(OrderHeaderInVoExample example);
 
-    int updateByExample(@Param("record") OrderHeaderInVo record, @Param("example") OrderHeaderInVoExample example);
+	int updateByExampleSelective(@Param("record") OrderHeaderInVo record,
+			@Param("example") OrderHeaderInVoExample example);
+
+	int updateByExample(@Param("record") OrderHeaderInVo record, @Param("example") OrderHeaderInVoExample example);
 }
