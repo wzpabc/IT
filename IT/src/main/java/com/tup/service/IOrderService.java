@@ -11,6 +11,6 @@ public interface IOrderService extends IService<OrderHeaderIn> {
 
 	void selectDataGridVo(PageInfo pageInfo);
 
-	OrderServiceImpl setHelper(RequestOrderParamHelper helper);
+	public	void setHelper(RequestOrderParamHelper helper);
 
 }

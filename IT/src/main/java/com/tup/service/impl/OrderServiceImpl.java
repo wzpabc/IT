@@ -25,12 +25,12 @@ import com.tup.service.IOrderService;
 public class OrderServiceImpl extends ServiceImpl<OrderHeaderInMapper, OrderHeaderIn> implements IOrderService {
 	@Autowired
 	private OrderHeaderInMapper mapper;
+	@Autowired
 	private OrderHeaderInVoMapper vmapper;
-	private RequestOrderParamHelper helper;
+	public RequestOrderParamHelper helper;
 
-	public OrderServiceImpl setHelper(RequestOrderParamHelper helper) {
-		this.helper = helper;
-		return this;
+	public void setHelper(RequestOrderParamHelper helper) {
+		this.helper = helper; 
 	}
 
 	// @Override
@@ -45,6 +45,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderHeaderInMapper, OrderHead
 	public void selectDataGridVo(PageInfo pageInfo) {
 		// Page<OrderHeaderInVo> page = new
 		// Page<OrderHeaderInVo>(pageInfo.getNowpage(), pageInfo.getSize());
+		System.out.println("helper.toString()");
+		System.out.println(helper.toString());
 		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd ");
 		DbcontextHolder.setDbType(DbcontextHolder.DATA_SOURCE_SQLSERVER);// 切换数据源
 		OrderHeaderInVoExample example = new OrderHeaderInVoExample();
@@ -52,10 +54,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderHeaderInMapper, OrderHead
 		if (!StringUtils.isEmpty(helper.getOrderno())) {
 			criteria.andSyvr01EqualTo(helper.getOrderno());
 		}
+		if (!StringUtils.isEmpty(helper.getCreatedateStart())&&!StringUtils.isEmpty(helper.getCreatedateEnd())) {
 		try {
 			criteria.andSytrdjBetween(fmt.parse(helper.getCreatedateStart()), fmt.parse(helper.getCreatedateEnd()));
 		} catch (ParseException e) {
 			e.printStackTrace();
+		}
 		}
 		if (!StringUtils.isEmpty(helper.getJdestatus())) {
 			criteria.andJdeStatusEqualTo("3");
@@ -66,6 +70,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderHeaderInMapper, OrderHead
 		example.setOrderByClause(" syvr01 desc");
 		example.setPage(String.valueOf(helper.getPage()));
 		example.setRows(String.valueOf(helper.getRows()));
+		
 		List<OrderHeaderInVo> list = vmapper.selectByExample(example);
 
 		pageInfo.setRows(list);

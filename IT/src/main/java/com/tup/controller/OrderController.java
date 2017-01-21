@@ -43,13 +43,14 @@ public class OrderController  {
 	
 	@PostMapping("/dataGrid") 
 	@ResponseBody
-	public PageInfo dataGrid(RequestOrderParamHelper order) {
-		System.out.println(order.toString());
+	public PageInfo dataGrid( RequestOrderParamHelper order) {
+		//System.out.println(order.toString());
 		PageInfo pageInfo = new PageInfo(order.getPage(), order.getRows());
 		Map<String, Object> condition = new HashMap<String, Object>();
 		pageInfo.setCondition(condition);
 		DbcontextHolder.setDbType(DbcontextHolder.DATA_SOURCE_SQLSERVER);// 切换数据源
-		iOrderService.setHelper(order).selectDataGridVo(pageInfo);
+		iOrderService.setHelper(order);
+		iOrderService.selectDataGridVo(pageInfo);
 		//pageInfo.setTotal(111);
 		DbcontextHolder.clearDbType();// 恢复默认数据源
 		return pageInfo;
