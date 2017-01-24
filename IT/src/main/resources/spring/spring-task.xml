@@ -42,7 +42,7 @@
 	
 	<bean id="mailSenderService" class="com.tup.service.impl.MailSenderService">
 		<property name="mailSender" ref="mailSender" />		
-		<property name="size" value="1" />
+		<property name="size" value="3" />
 	</bean>
 	
 	<bean id="emailprocessor" class="com.tup.service.impl.EmailRunnable">

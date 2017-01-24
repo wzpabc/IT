@@ -3,19 +3,21 @@ package com.tup.model;
 import java.util.Date;
 
 public class JobEmail {
-    private String mail;
-
     @Override
 	public String toString() {
-		return "JobEmail [mail=" + mail + ", execdate=" + execdate + ", nextexecdate=" + nextexecdate + ", yearweek="
-				+ yearweek + ", organno=" + organno + ", organname=" + organname + ", emailto=" + emailto + ", emailcc="
-				+ emailcc + ", emailbc=" + emailbc + ", subject=" + subject + ", content=" + content + ", attpath="
-				+ attpath + ", isactive=" + isactive + ", week=" + week + ", quarter=" + quarter + ", month=" + month
-				+ ", year=" + year + ", createtime=" + createtime + ", updatetime=" + updatetime + ", deleteflag="
-				+ deleteflag + ", id=" + id + ", status=" + status + "]";
+		return "JobEmail [id=" + id + ", mail=" + mail + ", execdate=" + execdate + ", nextexecdate=" + nextexecdate
+				+ ", yearweek=" + yearweek + ", organno=" + organno + ", organname=" + organname + ", emailto="
+				+ emailto + ", emailcc=" + emailcc + ", emailbc=" + emailbc + ", subject=" + subject + ", content="
+				+ content + ", attpath=" + attpath + ", isactive=" + isactive + ", week=" + week + ", quarter="
+				+ quarter + ", month=" + month + ", year=" + year + ", createtime=" + createtime + ", updatetime="
+				+ updatetime + ", deleteflag=" + deleteflag + ", status=" + status + ", type=" + type + "]";
 	}
 
-	private Date execdate;
+	private Integer id;
+
+    private String mail;
+
+    private Date execdate;
 
     private Date nextexecdate;
 
@@ -53,9 +55,17 @@ public class JobEmail {
 
     private Integer deleteflag;
 
-    private Integer id;
-
     private Byte status;
+
+    private Integer type;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getMail() {
         return mail;
@@ -217,19 +227,19 @@ public class JobEmail {
         this.deleteflag = deleteflag;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Byte getStatus() {
         return status;
     }
 
     public void setStatus(Byte status) {
         this.status = status;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }
