@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tup.mapper.ReportMapper" >
+  <resultMap id="BaseResultMap" type="com.tup.model.Report" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="rptusername" property="rptusername" jdbcType="VARCHAR" />
+    <result column="rptsource" property="rptsource" jdbcType="VARCHAR" />
+    <result column="sourcename" property="sourcename" jdbcType="VARCHAR" />
+    <result column="rpttarget" property="rpttarget" jdbcType="VARCHAR" />
+    <result column="targetname" property="targetname" jdbcType="VARCHAR" />
+    <result column="areano" property="areano" jdbcType="VARCHAR" />
+    <result column="provinceno" property="provinceno" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="VARCHAR" />
+    <result column="quarter" property="quarter" jdbcType="VARCHAR" />
+    <result column="month" property="month" jdbcType="VARCHAR" />
+    <result column="week" property="week" jdbcType="VARCHAR" />
+    <result column="rptcls" property="rptcls" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="updatedate" property="updatedate" jdbcType="TIMESTAMP" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="deleteFlag" property="deleteflag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, rptusername, rptsource, sourcename, rpttarget, targetname, areano, provinceno, 
+    year, quarter, month, week, rptcls, status, updatedate, createTime, updateTime, deleteFlag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tup.model.ReportExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from report
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+     <if test="offset != null  and rows != null " >
+    limit ${offset},${rows}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from report
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from report
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tup.model.ReportExample" >
+    delete from report
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tup.model.Report" >
+    insert into report (id, rptusername, rptsource, 
+      sourcename, rpttarget, targetname, 
+      areano, provinceno, year, 
+      quarter, month, week, 
+      rptcls, status, updatedate, 
+      createTime, updateTime, deleteFlag
+      )
+    values (#{id,jdbcType=INTEGER}, #{rptusername,jdbcType=VARCHAR}, #{rptsource,jdbcType=VARCHAR}, 
+      #{sourcename,jdbcType=VARCHAR}, #{rpttarget,jdbcType=VARCHAR}, #{targetname,jdbcType=VARCHAR}, 
+      #{areano,jdbcType=VARCHAR}, #{provinceno,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, 
+      #{quarter,jdbcType=VARCHAR}, #{month,jdbcType=VARCHAR}, #{week,jdbcType=VARCHAR}, 
+      #{rptcls,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{updatedate,jdbcType=TIMESTAMP}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{deleteflag,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tup.model.Report" >
+    insert into report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="rptusername != null" >
+        rptusername,
+      </if>
+      <if test="rptsource != null" >
+        rptsource,
+      </if>
+      <if test="sourcename != null" >
+        sourcename,
+      </if>
+      <if test="rpttarget != null" >
+        rpttarget,
+      </if>
+      <if test="targetname != null" >
+        targetname,
+      </if>
+      <if test="areano != null" >
+        areano,
+      </if>
+      <if test="provinceno != null" >
+        provinceno,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="month != null" >
+        month,
+      </if>
+      <if test="week != null" >
+        week,
+      </if>
+      <if test="rptcls != null" >
+        rptcls,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="updatedate != null" >
+        updatedate,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+      <if test="deleteflag != null" >
+        deleteFlag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="rptusername != null" >
+        #{rptusername,jdbcType=VARCHAR},
+      </if>
+      <if test="rptsource != null" >
+        #{rptsource,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcename != null" >
+        #{sourcename,jdbcType=VARCHAR},
+      </if>
+      <if test="rpttarget != null" >
+        #{rpttarget,jdbcType=VARCHAR},
+      </if>
+      <if test="targetname != null" >
+        #{targetname,jdbcType=VARCHAR},
+      </if>
+      <if test="areano != null" >
+        #{areano,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceno != null" >
+        #{provinceno,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null" >
+        #{month,jdbcType=VARCHAR},
+      </if>
+      <if test="week != null" >
+        #{week,jdbcType=VARCHAR},
+      </if>
+      <if test="rptcls != null" >
+        #{rptcls,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteflag != null" >
+        #{deleteflag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tup.model.ReportExample" resultType="java.lang.Integer" >
+    select count(*) from report
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update report
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.rptusername != null" >
+        rptusername = #{record.rptusername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rptsource != null" >
+        rptsource = #{record.rptsource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourcename != null" >
+        sourcename = #{record.sourcename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rpttarget != null" >
+        rpttarget = #{record.rpttarget,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetname != null" >
+        targetname = #{record.targetname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areano != null" >
+        areano = #{record.areano,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provinceno != null" >
+        provinceno = #{record.provinceno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.year != null" >
+        year = #{record.year,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quarter != null" >
+        quarter = #{record.quarter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.month != null" >
+        month = #{record.month,jdbcType=VARCHAR},
+      </if>
+      <if test="record.week != null" >
+        week = #{record.week,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rptcls != null" >
+        rptcls = #{record.rptcls,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatedate != null" >
+        updatedate = #{record.updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatetime != null" >
+        updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleteflag != null" >
+        deleteFlag = #{record.deleteflag,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update report
+    set id = #{record.id,jdbcType=INTEGER},
+      rptusername = #{record.rptusername,jdbcType=VARCHAR},
+      rptsource = #{record.rptsource,jdbcType=VARCHAR},
+      sourcename = #{record.sourcename,jdbcType=VARCHAR},
+      rpttarget = #{record.rpttarget,jdbcType=VARCHAR},
+      targetname = #{record.targetname,jdbcType=VARCHAR},
+      areano = #{record.areano,jdbcType=VARCHAR},
+      provinceno = #{record.provinceno,jdbcType=VARCHAR},
+      year = #{record.year,jdbcType=VARCHAR},
+      quarter = #{record.quarter,jdbcType=VARCHAR},
+      month = #{record.month,jdbcType=VARCHAR},
+      week = #{record.week,jdbcType=VARCHAR},
+      rptcls = #{record.rptcls,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      updatedate = #{record.updatedate,jdbcType=TIMESTAMP},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      deleteFlag = #{record.deleteflag,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tup.model.Report" >
+    update report
+    <set >
+      <if test="rptusername != null" >
+        rptusername = #{rptusername,jdbcType=VARCHAR},
+      </if>
+      <if test="rptsource != null" >
+        rptsource = #{rptsource,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcename != null" >
+        sourcename = #{sourcename,jdbcType=VARCHAR},
+      </if>
+      <if test="rpttarget != null" >
+        rpttarget = #{rpttarget,jdbcType=VARCHAR},
+      </if>
+      <if test="targetname != null" >
+        targetname = #{targetname,jdbcType=VARCHAR},
+      </if>
+      <if test="areano != null" >
+        areano = #{areano,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceno != null" >
+        provinceno = #{provinceno,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null" >
+        month = #{month,jdbcType=VARCHAR},
+      </if>
+      <if test="week != null" >
+        week = #{week,jdbcType=VARCHAR},
+      </if>
+      <if test="rptcls != null" >
+        rptcls = #{rptcls,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="updatedate != null" >
+        updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteflag != null" >
+        deleteFlag = #{deleteflag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tup.model.Report" >
+    update report
+    set rptusername = #{rptusername,jdbcType=VARCHAR},
+      rptsource = #{rptsource,jdbcType=VARCHAR},
+      sourcename = #{sourcename,jdbcType=VARCHAR},
+      rpttarget = #{rpttarget,jdbcType=VARCHAR},
+      targetname = #{targetname,jdbcType=VARCHAR},
+      areano = #{areano,jdbcType=VARCHAR},
+      provinceno = #{provinceno,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      quarter = #{quarter,jdbcType=VARCHAR},
+      month = #{month,jdbcType=VARCHAR},
+      week = #{week,jdbcType=VARCHAR},
+      rptcls = #{rptcls,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      deleteFlag = #{deleteflag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
