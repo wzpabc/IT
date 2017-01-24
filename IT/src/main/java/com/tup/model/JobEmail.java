@@ -45,6 +45,8 @@ public class JobEmail {
 
     private Integer id;
 
+    private Byte status;
+
     public String getMail() {
         return mail;
     }
@@ -211,5 +213,13 @@ public class JobEmail {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 }

@@ -1,15 +1,11 @@
 package com.tup.service.impl;
 
-import com.tup.model.JobEmail;
-import com.tup.mapper.JobEmailMapper;
-import com.tup.service.IJobEmailService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
-
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
-import com.baomidou.mybatisplus.mapper.Wrapper;
+import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tup.commons.utils.PageInfo;
 import com.tup.form.JobEmailHelper;
 import com.tup.mapper.JobEmailMapper;
