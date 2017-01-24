@@ -43,7 +43,14 @@ public class JobEmailServiceImpl extends ServiceImpl<JobEmailMapper, JobEmail> i
 		return super.insert(entity);
 	}
 	
- 
+	public List<JobEmail>  selectMailList(int size) { 
+		JobEmailExample example = new JobEmailExample(); 
+		example.setOffset("0");//mysql
+		example.setRows(String.valueOf(size));
+		Criteria criteria = example.createCriteria();
+		List<JobEmail> list = mapper.selectByExample(example);
+		return list;
+	}
 
 	public void selectDataGrid(PageInfo pageInfo) {
 		System.out.println(helper.toString());

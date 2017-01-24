@@ -39,6 +39,17 @@
 			<ref bean="taskExecutor" />
 		</property>
 	</bean>
+	
+	
+	<bean id="mailSenderService" class="com.tup.service.impl.MailSenderService">
+		<property name="mailSender" ref="mailSender" />
+	</bean>
+	<bean id="emailprocessor" class="com.tup.service.impl.EmailRunnable">
+		<property name="taskExecutor" ref="taskExecutor" />
+		<property name="mailSenderService">
+			<ref bean="mailSenderService" />
+		</property>
+	</bean>
 	<!-- 
 	 "30 * * * * ?" 每半分钟触发任务
 	"30 10 * * * ?" 每小时的10分30秒触发任务
@@ -62,7 +73,8 @@
 	<task:scheduled-tasks scheduler="myScheduler">
 		<task:scheduled ref="processor" method="process" fixed-delay="5000" initial-delay="1000" />
 		<task:scheduled ref="processor" method="process1" 	fixed-rate="5000" /> 
-		<task:scheduled ref="processor" method="process2" cron="*/10 * * * * MON-FRI" />
+		<task:scheduled ref="processor" method="process2" cron="*/5 * * * * MON-FRI" />
+		<task:scheduled ref="emailprocessor" method="process" cron="15,30,45 * * * * ?" />
 	</task:scheduled-tasks>
 	
 	<task:scheduler id="myScheduler" pool-size="50" />

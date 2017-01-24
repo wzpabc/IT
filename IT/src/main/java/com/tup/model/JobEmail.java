@@ -5,7 +5,17 @@ import java.util.Date;
 public class JobEmail {
     private String mail;
 
-    private Date execdate;
+    @Override
+	public String toString() {
+		return "JobEmail [mail=" + mail + ", execdate=" + execdate + ", nextexecdate=" + nextexecdate + ", yearweek="
+				+ yearweek + ", organno=" + organno + ", organname=" + organname + ", emailto=" + emailto + ", emailcc="
+				+ emailcc + ", emailbc=" + emailbc + ", subject=" + subject + ", content=" + content + ", attpath="
+				+ attpath + ", isactive=" + isactive + ", week=" + week + ", quarter=" + quarter + ", month=" + month
+				+ ", year=" + year + ", createtime=" + createtime + ", updatetime=" + updatetime + ", deleteflag="
+				+ deleteflag + ", id=" + id + ", status=" + status + "]";
+	}
+
+	private Date execdate;
 
     private Date nextexecdate;
 
