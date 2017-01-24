@@ -38,18 +38,30 @@
 		<property name="taskExecutor">
 			<ref bean="taskExecutor" />
 		</property>
-	</bean>
-	
+	</bean>	
 	
 	<bean id="mailSenderService" class="com.tup.service.impl.MailSenderService">
-		<property name="mailSender" ref="mailSender" />
+		<property name="mailSender" ref="mailSender" />		
+		<property name="size" value="1" />
 	</bean>
+	
 	<bean id="emailprocessor" class="com.tup.service.impl.EmailRunnable">
 		<property name="taskExecutor" ref="taskExecutor" />
 		<property name="mailSenderService">
 			<ref bean="mailSenderService" />
 		</property>
 	</bean>
+	
+	<task:scheduled-tasks scheduler="myScheduler">
+		<task:scheduled ref="processor" method="process" fixed-delay="5000" initial-delay="1000" />
+		<task:scheduled ref="processor" method="process1" 	fixed-rate="5000" /> 
+		<task:scheduled ref="processor" method="process2" cron="*/5 * * * * MON-FRI" />
+		<task:scheduled ref="emailprocessor" method="process" fixed-delay="5000" initial-delay="1000"  />
+	</task:scheduled-tasks>
+	
+	<task:scheduler id="myScheduler" pool-size="50" />
+	<!-- 注解式 -->
+	<!-- <task:annotation-driven executor="taskExecutor" proxy-target-class="true" 	/> -->
 	<!-- 
 	 "30 * * * * ?" 每半分钟触发任务
 	"30 10 * * * ?" 每小时的10分30秒触发任务
@@ -70,15 +82,6 @@
 	"0 15 10 ? * 5L" 每个月最后一个星期四的10点15分0秒触发任务
 	"0 15 10 ? * 5#3" 每个月第三周的星期四的10点15分0秒触发任务
 	 -->
-	<task:scheduled-tasks scheduler="myScheduler">
-		<task:scheduled ref="processor" method="process" fixed-delay="5000" initial-delay="1000" />
-		<task:scheduled ref="processor" method="process1" 	fixed-rate="5000" /> 
-		<task:scheduled ref="processor" method="process2" cron="*/5 * * * * MON-FRI" />
-		<task:scheduled ref="emailprocessor" method="process" cron="15,30,45 * * * * ?" />
-	</task:scheduled-tasks>
-	
-	<task:scheduler id="myScheduler" pool-size="50" />
-	<!-- 注解式 -->
-	<!-- <task:annotation-driven executor="taskExecutor" proxy-target-class="true" 	/> -->
+
 
 </beans>

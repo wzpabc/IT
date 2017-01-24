@@ -13,6 +13,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.druid.support.logging.Log;
+import com.alibaba.druid.support.logging.LogFactory;
 import com.tup.commons.base.EmailAuthenticator;
 import com.tup.commons.utils.VeDate;
 import com.tup.model.JobEmail;
@@ -20,6 +22,8 @@ import com.tup.service.IJobEmailService;
 
 @Service
 public class MailSenderService implements Runnable {
+	private static transient Log logger = LogFactory.getLog(MailSenderService.class);
+
 	// @Autowired
 	private JavaMailSenderImpl mailSender;
 
@@ -27,6 +31,7 @@ public class MailSenderService implements Runnable {
 	private IJobEmailService iJobEmailService;
 	// 发送邮件的服务器的IP和端口
 	private String host;
+	private int size = 10;
 	private String port = "25";
 	private String from = "";
 
@@ -36,6 +41,62 @@ public class MailSenderService implements Runnable {
 
 	// 是否需要身份验证
 	private boolean validate = false;
+
+	public MimeMessage createMimeMessage(JobEmail email) throws MessagingException, UnsupportedEncodingException {
+		// 判断是否需要身份认证
+		// EmailAuthenticator authenticator = null;
+		// if (isValidate()) {
+		// // 如果需要身份认证，则创建一个密码验证器
+		// authenticator = new EmailAuthenticator(getUserName(), getPassword());
+		// }
+		// Session sendMailSession = Session.getDefaultInstance(getProperties(),
+		// authenticator);
+		// // 根据session创建一个邮件消息
+		// MimeMessage mimeMessage = new MimeMessage(sendMailSession);
+
+		MimeMessage mimeMessage = mailSender.createMimeMessage();
+		System.out.println(email.toString());
+		MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
+		// messageHelper.setFrom("");
+		messageHelper.setSubject(email.getSubject());
+		messageHelper.setTo(email.getEmailto());
+		messageHelper.setCc(email.getEmailcc());
+		messageHelper.setText(email.getContent(), true); // html: true
+		// messageHelper.setText("<body><p>Hello Html Email</p><img
+		// src='cid:file'/></body>", true);
+		// FileSystemResource file = new
+		// FileSystemResource("C:\\Users\\image1.jpg");
+		// messageHelper.addInline("file", file);
+		messageHelper.setBcc(email.getEmailcc());
+		messageHelper.setSentDate(VeDate.getNow());
+		return mimeMessage;
+	}
+
+	public void run() {
+		// TODO Auto-generated method stub
+		List<JobEmail> lists = iJobEmailService.selectMailList(size);
+		for (JobEmail email : lists) {
+			MimeMessage msg;
+			try {
+				msg = createMimeMessage(email);
+				// mailSender.send(msg);
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				 if (logger.isDebugEnabled()) {  
+				        logger.debug("something you need to tell here");  
+				  }  
+				e.printStackTrace();
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				 if (logger.isDebugEnabled()) {  
+				        logger.debug("something you need to tell here");  
+				      }  
+			}
+
+		}
+
+	}
 
 	/**
 	 * 创建MimeMessage
@@ -113,53 +174,12 @@ public class MailSenderService implements Runnable {
 		this.mailSender = mailSender;
 	}
 
-	public MimeMessage createMimeMessage(JobEmail email) throws MessagingException, UnsupportedEncodingException {
-		// 判断是否需要身份认证
-		// EmailAuthenticator authenticator = null;
-		// if (isValidate()) {
-		// // 如果需要身份认证，则创建一个密码验证器
-		// authenticator = new EmailAuthenticator(getUserName(), getPassword());
-		// }
-		// Session sendMailSession = Session.getDefaultInstance(getProperties(),
-		// authenticator);
-		// // 根据session创建一个邮件消息
-		// MimeMessage mimeMessage = new MimeMessage(sendMailSession);
-
-		MimeMessage mimeMessage = mailSender.createMimeMessage();
-		System.out.println(email.toString());
-		MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
-		//messageHelper.setFrom("");
-		messageHelper.setSubject(email.getSubject());
-		messageHelper.setTo(email.getEmailto());
-		messageHelper.setCc(email.getEmailcc());
-		messageHelper.setText(email.getContent(), true); // html: true
-		// messageHelper.setText("<body><p>Hello Html Email</p><img
-		// src='cid:file'/></body>", true);
-		// FileSystemResource file = new
-		// FileSystemResource("C:\\Users\\image1.jpg");
-		// messageHelper.addInline("file", file);
-		messageHelper.setBcc(email.getEmailcc());
-		messageHelper.setSentDate(VeDate.getNow());
-		return mimeMessage;
+	public int getSize() {
+		return size;
 	}
 
-	public void run() {
-		// TODO Auto-generated method stub
-		List<JobEmail> lists = iJobEmailService.selectMailList(10);
-		for (JobEmail email : lists) {
-			MimeMessage msg;
-			try {
-				msg = createMimeMessage(email);
-				// mailSender.send(msg);
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (MessagingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
-
+	public void setSize(int size) {
+		this.size = size;
 	}
+
 }

@@ -25,7 +25,7 @@ public class JobEmailServiceImpl extends ServiceImpl<JobEmailMapper, JobEmail> i
 	@Autowired private JobEmailMapper mapper;
 	 
 	private JobEmailHelper helper;
-
+ 
 	private int count = 0;
 
 	@Autowired
@@ -45,9 +45,11 @@ public class JobEmailServiceImpl extends ServiceImpl<JobEmailMapper, JobEmail> i
 	
 	public List<JobEmail>  selectMailList(int size) { 
 		JobEmailExample example = new JobEmailExample(); 
+		example.setOrderByClause(" id asc");
 		example.setOffset("0");//mysql
-		example.setRows(String.valueOf(size));
+		example.setRows(String.valueOf(size)); 
 		Criteria criteria = example.createCriteria();
+		
 		List<JobEmail> list = mapper.selectByExample(example);
 		return list;
 	}
