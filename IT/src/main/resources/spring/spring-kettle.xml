@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd  
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	<!-- 注意:这里的参数(如用户名、密码)都是针对邮件发送者的 -->
+	<bean id="kettleconfig" class="com.tup.commons.base.KettleConfigHelper">
+		<property name="best_ip">
+			<value>${best_ip}</value>
+		</property>
+		<property name="best_dbname">
+			<value>${best_dbname}</value>
+		</property>
+		<property name="best_port">
+			<value>${best_port}</value>
+		</property>
+		<property name="best_username">
+			<value>${best_username}</value>
+		</property>
+		<property name="best_password">
+			<value>${best_password}</value>
+		</property>
+		<property name="great_ip">
+			<value>${great_ip}</value>
+		</property>
+		<property name="great_dbname">
+			<value>${great_dbname}</value>
+		</property>
+		<property name="great_port">
+			<value>${great_port}</value>
+		</property>
+		<property name="great_username">
+			<value>${great_username}</value>
+		</property>
+		<property name="great_password">
+			<value>${great_password}</value>
+		</property>
+		<property name="max_times">
+			<value>${max_times}</value>
+		</property>
+
+		<!-- generic email config -->
+
+		<property name="receive_addr">
+			<value>${receive_addr}</value>
+		</property>
+		<property name="send_addr">
+			<value>${spring.mail.username}</value>
+		</property>
+		<property name="smtp">
+			<value>${spring.mail.host}</value>
+		</property>
+		<property name="port">
+			<value>${spring.mail.port}</value>
+		</property>
+
+
+	</bean>
+
+</beans>

@@ -15,30 +15,49 @@ import com.tup.model.JobConfigExample.Criteria;
 import com.tup.service.IJobConfigService;
 
 @Service
-public class JobConfigServiceImpl extends ServiceImpl<JobConfigMapper,JobConfig> implements IJobConfigService  {
+public class JobConfigServiceImpl extends ServiceImpl<JobConfigMapper, JobConfig> implements IJobConfigService {
 	@Autowired
 	private JobConfigMapper mapper;
-	//@Autowired
+	// @Autowired
 	private JobconfigHelper helper;
 
 	private int count = 0;
 
-	/* (non-Javadoc)
-	 * @see com.tup.service.impl.IJobConfigService#setHelper(com.tup.commons.base.RequestJobconfigParamHelper)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.tup.service.impl.IJobConfigService#setHelper(com.tup.commons.base.
+	 * RequestJobconfigParamHelper)
 	 */
 	public void setHelper(JobconfigHelper helper) {
 		this.helper = helper;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.tup.service.impl.IJobConfigService#selectDataGrid(com.tup.commons.utils.PageInfo)
+	public List<JobConfig> selectJobConfigList(int size) {
+		JobConfigExample example = new JobConfigExample();
+		example.setOrderByClause(" id asc");
+		example.setOffset("0");// mysql
+		example.setRows(String.valueOf(size));
+		Criteria criteria = example.createCriteria();
+
+		List<JobConfig> list = mapper.selectByExample(example);
+		return list;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.tup.service.impl.IJobConfigService#selectDataGrid(com.tup.commons.
+	 * utils.PageInfo)
 	 */
-	//@Transactional
+	// @Transactional
 	public void selectDataGrid(PageInfo pageInfo) {
 		System.out.println(helper.toString());
 		JobConfigExample example = new JobConfigExample();
 		example.setOrderByClause(helper.getSort() + " " + helper.getOrder());
-		example.setOffset(String.valueOf(((helper.getPage()-1 )* helper.getRows())));
+		example.setOffset(String.valueOf(((helper.getPage() - 1) * helper.getRows())));
 		example.setRows(String.valueOf(helper.getRows()));
 		Criteria criteria = example.createCriteria();
 

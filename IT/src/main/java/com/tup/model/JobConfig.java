@@ -123,4 +123,12 @@ public class JobConfig implements Serializable {
     public void setRunStatus(String runStatus) {
         this.runStatus = runStatus == null ? null : runStatus.trim();
     }
+
+	@Override
+	public String toString() {
+		return "JobConfig [id=" + id + ", configCode=" + configCode + ", configName=" + configName + ", freq=" + freq
+				+ ", retryTime=" + retryTime + ", email=" + email + ", configStatus=" + configStatus + ", ktrName="
+				+ ktrName + ", remark=" + remark + ", createTime=" + createTime + ", updateTime=" + updateTime
+				+ ", runStatus=" + runStatus + "]";
+	}
 }

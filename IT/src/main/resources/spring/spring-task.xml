@@ -9,10 +9,10 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- 扫描 event包 -->
+	<!-- 扫描 event包
 	<context:component-scan base-package="com.tup.event;com.tup.task" />
-
-
+ -->
+    <!-- my slave  -->
 	<bean id="taskExecutor"
 		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
 		<!-- 核心线程数 -->
@@ -32,6 +32,7 @@
 	</bean>
 	<!-- 线程池（执行器） -->
 	<!-- 处理接口 -->
+	<!-- email inject -->
 	<bean id="service" class="com.tup.service.impl.TaskServiceImpl"/>
 	<bean id="processor" class="com.tup.service.impl.ProcessorImpl">
 		<property name="service" ref="service" />
@@ -42,7 +43,7 @@
 	
 	<bean id="mailSenderService" class="com.tup.service.impl.MailSenderService">
 		<property name="mailSender" ref="mailSender" />		
-		<property name="size" value="15" />
+		<property name="size" value="1" />
 	</bean>
 	
 	<bean id="emailprocessor" class="com.tup.service.impl.EmailRunnable">
@@ -51,15 +52,32 @@
 			<ref bean="mailSenderService" />
 		</property>
 	</bean>
-	
+	<!-- kettle inject -->
+	<bean id="kettleexecutor" class="com.tup.service.impl.KettleTasksExecutorService">
+		<property name="size" value="1" />
+		<property name="kettleconfig">
+			<ref bean="kettleconfig" />
+		</property>
+		<property name="taskExecutor">
+			<ref bean="taskExecutor" />
+		</property>
+	</bean>	
+	<!--email  task-->
 	<task:scheduled-tasks scheduler="myScheduler">
-		<task:scheduled ref="processor" method="process" fixed-delay="5000" initial-delay="1000" />
-		<task:scheduled ref="processor" method="process1" 	fixed-rate="5000" /> 
-		<task:scheduled ref="processor" method="process2" cron="*/5 * * * * MON-FRI" />
-		<task:scheduled ref="emailprocessor" method="process" fixed-delay="5000" initial-delay="1000"  />
+		<task:scheduled ref="processor" method="process" fixed-delay="10000" initial-delay="1000" />
+		<task:scheduled ref="processor" method="process1" 	fixed-rate="10000" />  
+		<task:scheduled ref="emailprocessor" method="process" fixed-delay="10000" initial-delay="1000"  />
+	</task:scheduled-tasks>
+	<task:scheduler id="myScheduler" pool-size="50" />
+	
+	<!--kettle  task-->
+	<task:scheduled-tasks scheduler="kettleScheduler">
+		 <task:scheduled ref="kettleexecutor" method="init" fixed-delay="10000" initial-delay="1000" /> 
+		<task:scheduled ref="processor" method="process2" cron="*/20 * * * * MON-FRI" />
 	</task:scheduled-tasks>
 	
-	<task:scheduler id="myScheduler" pool-size="50" />
+	<task:scheduler id="kettleScheduler" pool-size="10" />
+	
 	<!-- 注解式 -->
 	<!-- <task:annotation-driven executor="taskExecutor" proxy-target-class="true" 	/> -->
 	<!-- 
@@ -82,6 +100,4 @@
 	"0 15 10 ? * 5L" 每个月最后一个星期四的10点15分0秒触发任务
 	"0 15 10 ? * 5#3" 每个月第三周的星期四的10点15分0秒触发任务
 	 -->
-
-
 </beans>

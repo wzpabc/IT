@@ -22,7 +22,7 @@
 	<context:annotation-config />
 	<!-- 扫描service -->
 	<context:component-scan base-package="com.tup.service" />
-
+	<import resource="classpath:spring/spring-kettle.xml" />
 	<import resource="classpath:spring/spring-mybatis.xml" />
 	<import resource="classpath:spring/spring-ehcache.xml" />
 	<import resource="classpath:spring/spring-mail.xml" />
