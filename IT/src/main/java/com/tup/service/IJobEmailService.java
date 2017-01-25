@@ -24,4 +24,6 @@ public interface IJobEmailService extends IService<JobEmail> {
 
 	List<JobEmail> selectMailList(int size);
 
+	void updateByIdStatus2(JobEmail entity, int status);
+
 }

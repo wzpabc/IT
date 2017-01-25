@@ -75,23 +75,23 @@ public class MailSenderService implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		List<JobEmail> lists = iJobEmailService.selectMailList(size);
+		// update
+
 		for (JobEmail email : lists) {
 			MimeMessage msg;
 			try {
+
 				msg = createMimeMessage(email);
 				// mailSender.send(msg);
-			} catch (UnsupportedEncodingException e) {
+				iJobEmailService.updateByIdStatus2(email, 2);
+			} catch (Exception e) {
+				iJobEmailService.updateByIdStatus2(email, 3);// error
 				// TODO Auto-generated catch block
-				 if (logger.isDebugEnabled()) {  
-				        logger.debug("something you need to tell here");  
-				  }  
+				if (logger.isDebugEnabled()) {
+					logger.debug("something you need to tell here");
+				}
 				e.printStackTrace();
-			} catch (MessagingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				 if (logger.isDebugEnabled()) {  
-				        logger.debug("something you need to tell here");  
-				      }  
+				
 			}
 
 		}
