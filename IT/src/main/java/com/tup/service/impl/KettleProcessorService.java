@@ -5,15 +5,18 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.job.Job;
 import org.pentaho.di.job.JobMeta;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tup.commons.base.KettleConfigHelper;
 import com.tup.model.JobConfig;
+import com.tup.service.IJobConfigService;
 
 public class KettleProcessorService implements Runnable {
 	private static Logger logger = Logger.getLogger(KettleProcessorService.class);
@@ -22,6 +25,17 @@ public class KettleProcessorService implements Runnable {
 	// kettle job record
 	private JobConfig job;
 	private String ktrfullname;
+	//@Autowired
+	private IJobConfigService iJobConfigService;
+	
+
+	public IJobConfigService getiJobConfigService() {
+		return iJobConfigService;
+	}
+
+	public void setiJobConfigService(IJobConfigService iJobConfigService) {
+		this.iJobConfigService = iJobConfigService;
+	}
 
 	public KettleProcessorService() {
 		// super();
@@ -32,6 +46,13 @@ public class KettleProcessorService implements Runnable {
 		System.out.println("create KettleProcessorService");
 		this.kettleconfig = kettleconfig;
 		this.job = job;
+	}
+
+	public KettleProcessorService(KettleConfigHelper kettleconfig, JobConfig job, IJobConfigService iJobConfigService) {
+		super();
+		this.kettleconfig = kettleconfig;
+		this.job = job;
+		this.iJobConfigService = iJobConfigService;
 	}
 
 	public KettleConfigHelper getKettleconfig() {
@@ -69,35 +90,31 @@ public class KettleProcessorService implements Runnable {
 	public void process(JobConfig jobentity, KettleConfigHelper kettleconfig)
 			throws KettleException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		KettleEnvironment.init();
-		ktrfullname = System.getProperty("webapp.root") + File.separator + "kettle" + File.separator+ jobentity.getKtrName();
+		ktrfullname = System.getProperty("webapp.root") + File.separator + "kettle" + File.separator
+				+ jobentity.getKtrName();
 		JobMeta jobMeta = new JobMeta(ktrfullname, null);
 		Job job = new Job(null, jobMeta);
 		Map<String, Object> map = ConvertObjectToMap(kettleconfig);
 		for (String key : map.keySet()) {
 			// // map parameters
 			job.setVariable(key, (String) map.get(key));
-			//System.out.println("Key = " + key + ", Value = " + (String) map.get(key));
+			// System.out.println("Key = " + key + ", Value = " + (String)
+			// map.get(key));
 		}
-		 job.start();
-		 job.waitUntilFinished();
+		job.start();
+		job.waitUntilFinished();
 	}
 
 	// by job
 	public void run() {
 		// TODO Auto-generated method stub
 		try {
+			Thread.sleep((new Random()).nextInt(3000));
 			process(job, kettleconfig);
-		} catch (IllegalAccessException e) {
+			iJobConfigService.updateByIdRunStatus(job, "2");
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (KettleException e) {
-			// TODO Auto-generated catch block
+			iJobConfigService.updateByIdRunStatus(job, "3");
 			e.printStackTrace();
 		}
 	}

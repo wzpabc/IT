@@ -1,5 +1,6 @@
 package com.tup.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +36,55 @@ public class JobConfigServiceImpl extends ServiceImpl<JobConfigMapper, JobConfig
 	}
 
 	public List<JobConfig> selectJobConfigList(int size) {
+		int count = 0;
 		JobConfigExample example = new JobConfigExample();
 		example.setOrderByClause(" id asc");
 		example.setOffset("0");// mysql
 		example.setRows(String.valueOf(size));
 		Criteria criteria = example.createCriteria();
-
+		criteria.andRunStatusEqualTo("0");
+		Criteria criteriaor = example.createCriteria();
+		criteriaor.andRunStatusEqualTo("3");
+		criteriaor.andRetryTimeLessThan(4);
+		example.or(criteriaor);
+		System.out.println("selectJobConfigList");
 		List<JobConfig> list = mapper.selectByExample(example);
-		return list;
+		System.out.println(list.size());
+		example.clear();
+
+		List<JobConfig> finallist = new ArrayList<JobConfig>();
+
+		for (JobConfig job : list) {
+			JobConfig temp = new JobConfig();
+			System.out.println(job.toString());
+			temp.setRunStatus("1");
+			example = new JobConfigExample();
+			criteria = example.createCriteria();
+			criteria.andIdEqualTo(job.getId());
+			count = mapper.updateByExampleSelective(temp, example);
+			if (count > 0) {
+				finallist.add(job);
+			}
+			temp = null;
+		}
+		list = null;
+		System.out.println(finallist.size());
+		return finallist;
+	}
+
+	public boolean updateByIdRunStatus(JobConfig entity, String status) {
+		int count = 0;
+		JobConfigExample example = new JobConfigExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(entity.getId());
+		criteria.andRunStatusGreaterThan("-1");
+		JobConfig temp = new JobConfig();
+		temp.setRunStatus(status);
+		count = mapper.updateByExampleSelective(temp, example);
+		if (count > 0) {
+			return true;
+		}
+		return false;
 	}
 
 	/*
