@@ -25,9 +25,8 @@ public class KettleProcessorService implements Runnable {
 	// kettle job record
 	private JobConfig job;
 	private String ktrfullname;
-	//@Autowired
+	// @Autowired
 	private IJobConfigService iJobConfigService;
-	
 
 	public IJobConfigService getiJobConfigService() {
 		return iJobConfigService;
@@ -89,6 +88,7 @@ public class KettleProcessorService implements Runnable {
 
 	public void process(JobConfig jobentity, KettleConfigHelper kettleconfig)
 			throws KettleException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		iJobConfigService.updateByIdRunStatus(job, "2");// processing
 		KettleEnvironment.init();
 		ktrfullname = System.getProperty("webapp.root") + File.separator + "kettle" + File.separator
 				+ jobentity.getKtrName();
@@ -111,10 +111,13 @@ public class KettleProcessorService implements Runnable {
 		try {
 			Thread.sleep((new Random()).nextInt(3000));
 			process(job, kettleconfig);
-			iJobConfigService.updateByIdRunStatus(job, "2");
+			// release job
+			iJobConfigService.updateByIdRunStatus(job, "0"); 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			iJobConfigService.updateByIdRunStatus(job, "3");
+			//retry +1
+			iJobConfigService.RetryAutoIncrement(job);
 			e.printStackTrace();
 		}
 	}

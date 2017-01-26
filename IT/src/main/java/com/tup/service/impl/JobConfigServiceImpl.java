@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tup.commons.utils.PageInfo;
+import com.tup.commons.utils.VeDate;
 import com.tup.form.JobconfigHelper;
 import com.tup.mapper.JobConfigMapper;
 import com.tup.model.JobConfig;
@@ -35,6 +36,36 @@ public class JobConfigServiceImpl extends ServiceImpl<JobConfigMapper, JobConfig
 		this.helper = helper;
 	}
 
+	public boolean RetryAutoIncrement(JobConfig entity) {
+		int count = 0;
+		JobConfigExample example = new JobConfigExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(entity.getId());
+		criteria.andRunStatusGreaterThan("-1");
+		List<JobConfig> list = mapper.selectByExample(example);
+		JobConfig temp = new JobConfig();
+		temp.setRetryTime(list.get(0).getRetryTime() + 1);
+		count = mapper.updateByExampleSelective(temp, example);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean UpdateTime(JobConfig entity) {
+		int count = 0;
+		JobConfigExample example = new JobConfigExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(entity.getId());
+		criteria.andRunStatusGreaterThan("-1");
+		List<JobConfig> list = mapper.selectByExample(example);
+		JobConfig temp = new JobConfig();
+		temp.setUpdateTime(VeDate.getNow());
+		count = mapper.updateByExampleSelective(temp, example);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
 	public List<JobConfig> selectJobConfigList(int size) {
 		int count = 0;
 		JobConfigExample example = new JobConfigExample();
@@ -42,18 +73,15 @@ public class JobConfigServiceImpl extends ServiceImpl<JobConfigMapper, JobConfig
 		example.setOffset("0");// mysql
 		example.setRows(String.valueOf(size));
 		Criteria criteria = example.createCriteria();
-		criteria.andRunStatusEqualTo("0");
-		Criteria criteriaor = example.createCriteria();
-		criteriaor.andRunStatusEqualTo("3");
-		criteriaor.andRetryTimeLessThan(4);
-		example.or(criteriaor);
+		criteria.andRunStatusEqualTo("0");// realse
+		criteria.andRetryTimeLessThan(4);// worth
+		criteria.andConfigStatusEqualTo("1");// active
 		System.out.println("selectJobConfigList");
 		List<JobConfig> list = mapper.selectByExample(example);
 		System.out.println(list.size());
 		example.clear();
-
 		List<JobConfig> finallist = new ArrayList<JobConfig>();
-
+		// prevent dirty read, filtering dirty read records
 		for (JobConfig job : list) {
 			JobConfig temp = new JobConfig();
 			System.out.println(job.toString());
@@ -61,6 +89,7 @@ public class JobConfigServiceImpl extends ServiceImpl<JobConfigMapper, JobConfig
 			example = new JobConfigExample();
 			criteria = example.createCriteria();
 			criteria.andIdEqualTo(job.getId());
+			criteria.andRunStatusEqualTo("0");
 			count = mapper.updateByExampleSelective(temp, example);
 			if (count > 0) {
 				finallist.add(job);
@@ -80,6 +109,7 @@ public class JobConfigServiceImpl extends ServiceImpl<JobConfigMapper, JobConfig
 		criteria.andRunStatusGreaterThan("-1");
 		JobConfig temp = new JobConfig();
 		temp.setRunStatus(status);
+		temp.setUpdateTime(VeDate.getNow());
 		count = mapper.updateByExampleSelective(temp, example);
 		if (count > 0) {
 			return true;

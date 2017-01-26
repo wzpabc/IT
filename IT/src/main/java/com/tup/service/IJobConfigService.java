@@ -15,6 +15,10 @@ public interface IJobConfigService extends IService<JobConfig> {
 
 	List<JobConfig> selectJobConfigList(int size);
 
+	boolean RetryAutoIncrement(JobConfig entity);
+
+	boolean UpdateTime(JobConfig entity);
+
 	boolean updateByIdRunStatus(JobConfig entity, String status);
 
 }

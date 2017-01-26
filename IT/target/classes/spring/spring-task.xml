@@ -54,7 +54,7 @@
 	</bean>
 	<!-- kettle inject -->
 	<bean id="kettleexecutor" class="com.tup.service.impl.KettleTasksExecutorService">
-		<property name="size" value="10" />
+		<property name="size" value="50" />
 		<property name="kettleconfig">
 			<ref bean="kettleconfig" />
 		</property>

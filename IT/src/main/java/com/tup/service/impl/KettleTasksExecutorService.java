@@ -40,8 +40,7 @@ public class KettleTasksExecutorService {
 	}
 
 	public void init() {
-		for (JobConfig job : iJobConfigService.selectJobConfigList(size)) {
-			System.out.println(job.toString());
+		for (JobConfig job : iJobConfigService.selectJobConfigList(size)) { 
 			taskExecutor.execute(new KettleProcessorService(kettleconfig, job,iJobConfigService));
 		}
 			
