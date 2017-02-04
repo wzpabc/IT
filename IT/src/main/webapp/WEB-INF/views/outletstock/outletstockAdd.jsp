@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/commons/global.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="/commons/global.jsp"%>
 <script type="text/javascript">
     $(function() {
         $('#outletstockAddForm').form({
@@ -26,15 +27,97 @@
         });
     });
 </script>
-<div class="easyui-layout" data-options="fit:true,border:false" >
-    <div data-options="region:'center',border:false" style="overflow: hidden;padding: 3px;" >
-        <form id="outletstockAddForm" method="post">
-            <table class="grid">
-                <tr>
-                    <td>商家名称</td>
-                    <td><input name="name" type="text" placeholder="请输入名称" class="easyui-validatebox span2" data-options="required:true" value=""></td>
-                </tr> 
-            </table>
-        </form>
-    </div>
+<div class="easyui-layout" data-options="fit:true,border:false">
+	<div data-options="region:'center',border:false"
+		style="overflow: hidden; padding: 3px;">
+		<form id="outletstockAddForm" method="post">
+			<table class="grid">
+				<tr>
+					<td>id</td>
+					<td><input name="id" type="text" class="easyui-textbox"
+						data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>year</td>
+					<td><input name="year" type="text" class="easyui-textbox"
+						data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>month</td>
+					<td><input name="month" type="text" class="easyui-textbox"
+						data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>outletno</td>
+					<td><input name="outletno" type="text" class="easyui-textbox"
+						data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>area</td>
+					<td><input name="area" type="text" class="easyui-textbox"
+						data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>rental</td>
+					<td><input name="rental" type="text" class="easyui-textbox"
+						data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>salary</td>
+					<td><input name="salary" type="text" class="easyui-textbox"
+						data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>filename</td>
+					<td><input name="filename" type="text" class="easyui-textbox"
+						data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>itemno</td>
+					<td><input name="itemno" type="text" class="easyui-textbox"
+						data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>itemname</td>
+					<td><input name="itemname" type="text" class="easyui-textbox"
+						data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>unit</td>
+					<td><input name="unit" type="text" class="easyui-textbox"
+						data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>price</td>
+					<td><input name="price" type="text" class="easyui-textbox"
+						data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>shopamount</td>
+					<td><input name="shopamount" type="text"
+						class="easyui-textbox" data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>warehouse1amount</td>
+					<td><input name="warehouse1amount" type="text"
+						class="easyui-textbox" data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>warehouse2amount</td>
+					<td><input name="warehouse2amount" type="text"
+						class="easyui-textbox" data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>totalamount</td>
+					<td><input name="totalamount" type="text"
+						class="easyui-textbox" data-options="required:true" value=""></td>
+				</tr>
+				<tr>
+					<td>total</td>
+					<td><input name="total" type="text" class="easyui-textbox"
+						data-options="required:true" value=""></td>
+				</tr>
+			</table>
+		</form>
+	</div>
 </div>

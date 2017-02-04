@@ -30,10 +30,12 @@
     <div data-options="region:'center',border:false" style="overflow: hidden;padding: 3px;" >
         <form id="${table.entityPath}AddForm" method="post">
             <table class="grid">
-                <tr>
-                    <td>商家名称</td>
-                    <td><input name="name" type="text" placeholder="请输入名称" class="easyui-validatebox span2" data-options="required:true" value=""></td>
+            #foreach($field in ${table.fields})		 
+		        <tr>
+                    <td>${field.name.toLowerCase()}</td>
+                    <td><input name="${field.name.toLowerCase()}" type="text" class="easyui-textbox"  data-options="required:true" value=""></td>
                 </tr> 
+		    #end              
             </table>
         </form>
     </div>

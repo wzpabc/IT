@@ -32,6 +32,12 @@
     <div data-options="region:'center',border:false" title="" style="overflow: hidden;padding: 3px;">
         <form id="${table.entityPath}EditForm" method="post">
             <table class="grid">
+              #foreach($field in ${table.fields})		 
+		         <tr>
+                    <td>${field.name.toLowerCase()}</td>
+                    <td><input name="${field.name.toLowerCase()}" type="text" class="easyui-textbox"  data-options="required:true" value=""></td>
+                </tr> 
+		    #end   
                 <tr>
                     <td>商家名称</td>
                     <td><input name="id" type="hidden"  value="${${table.entityPath}.id}">

@@ -23,9 +23,9 @@
         	{ width : '60',title : 'area', field : 'area',sortable : true },
         	{ width : '60',title : 'rental', field : 'rental',sortable : true },
         	{ width : '60',title : 'salary', field : 'salary',sortable : true },
-        	{ width : '60',title : 'filename', field : 'filename',sortable : true },
+        	{ width : '100',title : 'filename', field : 'filename',sortable : true },
         	{ width : '60',title : 'itemno', field : 'itemno',sortable : true },
-        	{ width : '60',title : 'itemname', field : 'itemname',sortable : true },
+        	{ width : '200',title : 'itemname', field : 'itemname',sortable : true },
         	{ width : '60',title : 'unit', field : 'unit',sortable : true },
         	{ width : '60',title : 'price', field : 'price',sortable : true },
         	{ width : '60',title : 'shopamount', field : 'shopamount',sortable : true },
@@ -33,25 +33,7 @@
         	{ width : '60',title : 'warehouse2amount', field : 'warehouse2amount',sortable : true },
         	{ width : '60',title : 'totalamount', field : 'totalamount',sortable : true },
         	{ width : '60',title : 'total', field : 'total',sortable : true },
-		        {
-            width : '60',
-            title : '状态',
-            field : 'status',
-            sortable : true,
-            formatter : function(value, row, index) {
-                switch (value) {
-                case 0:
-                    return '正常';
-                case 1:
-                    return '停用';
-                }
-            }
-        }, {
-            width : '140',
-            title : '创建时间',
-            field : 'createTime',
-            sortable : true
-        }, {
+		    {
             field : 'action',
             title : '操作',
             width : 200,
@@ -86,13 +68,26 @@ function outletstockAddFun() {
         height : 600,
         href : '${path}/outletstock/addPage',
         buttons : [ {
-            text : '确定',
-            handler : function() {
-                parent.$.modalDialog.openner_dataGrid = outletstockDataGrid;//因为添加成功之后，需要刷新这个treeGrid，所以先预定义好
-                var f = parent.$.modalDialog.handler.find('#outletstockAddForm');
-                f.submit();
-            }
-        } ]
+			            text : '确定',
+			            handler : function() {
+			                parent.$.modalDialog.openner_dataGrid = outletstockDataGrid;//因为添加成功之后，需要刷新这个treeGrid，所以先预定义好
+			                var f = parent.$.modalDialog.handler.find('#outletstockAddForm');
+			                f.submit();
+			            }
+			        } ,
+			        {
+			            text : '关闭',
+			            handler : function() {
+			                alert("关闭");
+			            }
+			        } ,
+			        {
+			            text : '重置',
+			            handler : function() {
+			            	 alert("重置");
+			            }
+			        } 
+        ]
     });
 }
 
@@ -113,13 +108,26 @@ function outletstockEditFun(id) {
         height : 600,
         href :  '${path}/outletstock/editPage?id=' + id,
         buttons : [ {
-            text : '确定',
-            handler : function() {
-                parent.$.modalDialog.openner_dataGrid = outletstockDataGrid;//因为添加成功之后，需要刷新这个dataGrid，所以先预定义好
-                var f = parent.$.modalDialog.handler.find('#outletstockEditForm');
-                f.submit();
-            }
-        } ]
+			            text : '确定',
+			            handler : function() {
+			                parent.$.modalDialog.openner_dataGrid = outletstockDataGrid;//因为添加成功之后，需要刷新这个dataGrid，所以先预定义好
+			                var f = parent.$.modalDialog.handler.find('#outletstockEditForm');
+			                f.submit();
+			            }
+			        } ,
+			        {
+			            text : '关闭',
+			            handler : function() {
+			                alert("关闭");
+			            }
+			        } ,
+			        {
+			            text : '重置',
+			            handler : function() {
+			            	 alert("重置");
+			            }
+			        } 
+        ]
     });
 }
 
