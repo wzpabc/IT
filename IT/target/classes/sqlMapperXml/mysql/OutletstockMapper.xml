@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tup.mapper.OutletstockMapper" >
+  <resultMap id="BaseResultMap" type="com.tup.model.Outletstock" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="Month" property="month" jdbcType="INTEGER" />
+    <result column="OutletNo" property="outletno" jdbcType="VARCHAR" />
+    <result column="Area" property="area" jdbcType="VARCHAR" />
+    <result column="Rental" property="rental" jdbcType="VARCHAR" />
+    <result column="Salary" property="salary" jdbcType="VARCHAR" />
+    <result column="FileName" property="filename" jdbcType="VARCHAR" />
+    <result column="ItemNo" property="itemno" jdbcType="VARCHAR" />
+    <result column="ItemName" property="itemname" jdbcType="VARCHAR" />
+    <result column="Unit" property="unit" jdbcType="VARCHAR" />
+    <result column="Price" property="price" jdbcType="VARCHAR" />
+    <result column="ShopAmount" property="shopamount" jdbcType="VARCHAR" />
+    <result column="WareHouse1Amount" property="warehouse1amount" jdbcType="VARCHAR" />
+    <result column="WareHouse2Amount" property="warehouse2amount" jdbcType="VARCHAR" />
+    <result column="TotalAmount" property="totalamount" jdbcType="VARCHAR" />
+    <result column="Total" property="total" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, Year, Month, OutletNo, Area, Rental, Salary, FileName, ItemNo, ItemName, Unit, 
+    Price, ShopAmount, WareHouse1Amount, WareHouse2Amount, TotalAmount, Total
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tup.model.OutletstockExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from outletstock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="offset != null  and rows != null " >
+    limit ${offset},${rows}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from outletstock
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from outletstock
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tup.model.OutletstockExample" >
+    delete from outletstock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tup.model.Outletstock" >
+    insert into outletstock (ID, Year, Month, 
+      OutletNo, Area, Rental, 
+      Salary, FileName, ItemNo, 
+      ItemName, Unit, Price, 
+      ShopAmount, WareHouse1Amount, WareHouse2Amount, 
+      TotalAmount, Total)
+    values (#{id,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{month,jdbcType=INTEGER}, 
+      #{outletno,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{rental,jdbcType=VARCHAR}, 
+      #{salary,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, #{itemno,jdbcType=VARCHAR}, 
+      #{itemname,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, 
+      #{shopamount,jdbcType=VARCHAR}, #{warehouse1amount,jdbcType=VARCHAR}, #{warehouse2amount,jdbcType=VARCHAR}, 
+      #{totalamount,jdbcType=VARCHAR}, #{total,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tup.model.Outletstock" >
+    insert into outletstock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="year != null" >
+        Year,
+      </if>
+      <if test="month != null" >
+        Month,
+      </if>
+      <if test="outletno != null" >
+        OutletNo,
+      </if>
+      <if test="area != null" >
+        Area,
+      </if>
+      <if test="rental != null" >
+        Rental,
+      </if>
+      <if test="salary != null" >
+        Salary,
+      </if>
+      <if test="filename != null" >
+        FileName,
+      </if>
+      <if test="itemno != null" >
+        ItemNo,
+      </if>
+      <if test="itemname != null" >
+        ItemName,
+      </if>
+      <if test="unit != null" >
+        Unit,
+      </if>
+      <if test="price != null" >
+        Price,
+      </if>
+      <if test="shopamount != null" >
+        ShopAmount,
+      </if>
+      <if test="warehouse1amount != null" >
+        WareHouse1Amount,
+      </if>
+      <if test="warehouse2amount != null" >
+        WareHouse2Amount,
+      </if>
+      <if test="totalamount != null" >
+        TotalAmount,
+      </if>
+      <if test="total != null" >
+        Total,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null" >
+        #{month,jdbcType=INTEGER},
+      </if>
+      <if test="outletno != null" >
+        #{outletno,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="rental != null" >
+        #{rental,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="itemno != null" >
+        #{itemno,jdbcType=VARCHAR},
+      </if>
+      <if test="itemname != null" >
+        #{itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="shopamount != null" >
+        #{shopamount,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse1amount != null" >
+        #{warehouse1amount,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse2amount != null" >
+        #{warehouse2amount,jdbcType=VARCHAR},
+      </if>
+      <if test="totalamount != null" >
+        #{totalamount,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tup.model.OutletstockExample" resultType="java.lang.Integer" >
+    select count(*) from outletstock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update outletstock
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.year != null" >
+        Year = #{record.year,jdbcType=INTEGER},
+      </if>
+      <if test="record.month != null" >
+        Month = #{record.month,jdbcType=INTEGER},
+      </if>
+      <if test="record.outletno != null" >
+        OutletNo = #{record.outletno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        Area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rental != null" >
+        Rental = #{record.rental,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salary != null" >
+        Salary = #{record.salary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filename != null" >
+        FileName = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemno != null" >
+        ItemNo = #{record.itemno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemname != null" >
+        ItemName = #{record.itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unit != null" >
+        Unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        Price = #{record.price,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopamount != null" >
+        ShopAmount = #{record.shopamount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouse1amount != null" >
+        WareHouse1Amount = #{record.warehouse1amount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouse2amount != null" >
+        WareHouse2Amount = #{record.warehouse2amount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalamount != null" >
+        TotalAmount = #{record.totalamount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.total != null" >
+        Total = #{record.total,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update outletstock
+    set ID = #{record.id,jdbcType=INTEGER},
+      Year = #{record.year,jdbcType=INTEGER},
+      Month = #{record.month,jdbcType=INTEGER},
+      OutletNo = #{record.outletno,jdbcType=VARCHAR},
+      Area = #{record.area,jdbcType=VARCHAR},
+      Rental = #{record.rental,jdbcType=VARCHAR},
+      Salary = #{record.salary,jdbcType=VARCHAR},
+      FileName = #{record.filename,jdbcType=VARCHAR},
+      ItemNo = #{record.itemno,jdbcType=VARCHAR},
+      ItemName = #{record.itemname,jdbcType=VARCHAR},
+      Unit = #{record.unit,jdbcType=VARCHAR},
+      Price = #{record.price,jdbcType=VARCHAR},
+      ShopAmount = #{record.shopamount,jdbcType=VARCHAR},
+      WareHouse1Amount = #{record.warehouse1amount,jdbcType=VARCHAR},
+      WareHouse2Amount = #{record.warehouse2amount,jdbcType=VARCHAR},
+      TotalAmount = #{record.totalamount,jdbcType=VARCHAR},
+      Total = #{record.total,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tup.model.Outletstock" >
+    update outletstock
+    <set >
+      <if test="year != null" >
+        Year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null" >
+        Month = #{month,jdbcType=INTEGER},
+      </if>
+      <if test="outletno != null" >
+        OutletNo = #{outletno,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        Area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="rental != null" >
+        Rental = #{rental,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        Salary = #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        FileName = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="itemno != null" >
+        ItemNo = #{itemno,jdbcType=VARCHAR},
+      </if>
+      <if test="itemname != null" >
+        ItemName = #{itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        Unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        Price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="shopamount != null" >
+        ShopAmount = #{shopamount,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse1amount != null" >
+        WareHouse1Amount = #{warehouse1amount,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse2amount != null" >
+        WareHouse2Amount = #{warehouse2amount,jdbcType=VARCHAR},
+      </if>
+      <if test="totalamount != null" >
+        TotalAmount = #{totalamount,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        Total = #{total,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tup.model.Outletstock" >
+    update outletstock
+    set Year = #{year,jdbcType=INTEGER},
+      Month = #{month,jdbcType=INTEGER},
+      OutletNo = #{outletno,jdbcType=VARCHAR},
+      Area = #{area,jdbcType=VARCHAR},
+      Rental = #{rental,jdbcType=VARCHAR},
+      Salary = #{salary,jdbcType=VARCHAR},
+      FileName = #{filename,jdbcType=VARCHAR},
+      ItemNo = #{itemno,jdbcType=VARCHAR},
+      ItemName = #{itemname,jdbcType=VARCHAR},
+      Unit = #{unit,jdbcType=VARCHAR},
+      Price = #{price,jdbcType=VARCHAR},
+      ShopAmount = #{shopamount,jdbcType=VARCHAR},
+      WareHouse1Amount = #{warehouse1amount,jdbcType=VARCHAR},
+      WareHouse2Amount = #{warehouse2amount,jdbcType=VARCHAR},
+      TotalAmount = #{totalamount,jdbcType=VARCHAR},
+      Total = #{total,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -70,7 +70,7 @@ public class GeneratorCode {
 //        strategy.setTablePrefix("bmd_");// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
        // strategy.setInclude(new String[] { "fmsuser", "report", "reportcls", "reportmapping", "tableauuser", "usermapping" }); // 需要生成的表
-        strategy.setInclude(new String[] { "job_email" }); // 需要生成的表
+        strategy.setInclude(new String[] { "outletstock" }); // 需要生成的表
         
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         // 字段名生成策略

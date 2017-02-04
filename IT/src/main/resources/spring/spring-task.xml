@@ -73,7 +73,7 @@
 	
 	<!--kettle  task-->
 	<task:scheduled-tasks scheduler="kettleScheduler">
-		 <task:scheduled ref="kettleexecutor" method="init" fixed-delay="5000" initial-delay="100" />  
+		 <task:scheduled ref="kettleexecutor" method="init" fixed-delay="500000" initial-delay="100" />  
 		<!-- <task:scheduled ref="processor" method="process2" cron="*/20 * * * * MON-FRI" />-->
 	</task:scheduled-tasks>
 	

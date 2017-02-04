@@ -44,8 +44,10 @@
 		 <table tableName="reportmapping" domainObjectName="Reportmapping" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
 		 <table tableName="tableauuser" domainObjectName="Tableauuser" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
 		 <table tableName="usermapping" domainObjectName="Usermapping" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+          <table tableName="job_email" domainObjectName="JobEmail" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+     
          -->
-         <table tableName="job_email" domainObjectName="JobEmail" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+         <table tableName="OutletStock" domainObjectName="Outletstock" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
      
     </context>
 </generatorConfiguration>
