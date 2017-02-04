@@ -64,6 +64,9 @@ public class OrderHelper {
 				+ organno + ", ordertype=" + ordertype + ", createdateStart=" + createdateStart + ", createdateEnd="
 				+ createdateEnd + "]";
 	}
+	public OrderHelper() {
+		super();
+	}
  
 
 }

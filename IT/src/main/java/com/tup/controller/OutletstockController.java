@@ -36,8 +36,12 @@ public class OutletstockController extends BaseController {
     public String manager() {
         return "outletstock/outletstock";
     }
-
-
+	
+	@GetMapping("/stockcacl")
+    public String stockcacl() {
+        return "stockcacl";
+    }
+	
     @PostMapping("/dataGrid")
     @ResponseBody
     public PageInfo dataGrid(OutletstockHelper helper) {
