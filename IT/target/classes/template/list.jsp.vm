@@ -14,12 +14,12 @@
         sortOrder : 'asc',
         pageSize : 20,
         pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500],
-        frozenColumns : [ [ {
-            width : '60',
-            title : '编号',
-            field : 'id',
-            sortable : true
-        }, {
+        columns : [ [ 
+         
+		#foreach($field in ${table.fields})		 
+		 { width : '60',title : '${field.name}', field : '${field.name}',sortable : true },
+		#end
+        {
             width : '60',
             title : '状态',
             field : 'status',
@@ -43,10 +43,10 @@
             width : 200,
             formatter : function(value, row, index) {
                 var str = '';
-                <shiro:hasPermission name="/${table.entityPath}/edit">
+                <shiro:hasPermission name="/user/add">
                     str += $.formatString('<a href="javascript:void(0)" class="${table.entityPath}-easyui-linkbutton-edit" data-options="plain:true,iconCls:\'fi-pencil icon-blue\'" onclick="${table.entityPath}EditFun(\'{0}\');" >编辑</a>', row.id);
                 </shiro:hasPermission>
-                <shiro:hasPermission name="/${table.entityPath}/delete">
+                <shiro:hasPermission name="/user/add">
                     str += '&nbsp;&nbsp;|&nbsp;&nbsp;';
                     str += $.formatString('<a href="javascript:void(0)" class="${table.entityPath}-easyui-linkbutton-del" data-options="plain:true,iconCls:\'fi-x icon-red\'" onclick="${table.entityPath}DeleteFun(\'{0}\');" >删除</a>', row.id);
                 </shiro:hasPermission>
@@ -157,12 +157,8 @@ function ${table.entityPath}SearchFun() {
         <form id="${table.entityPath}SearchForm">
             <table>
                 <tr>
-                    <th>名称:</th>
-                    <td><input name="name" placeholder="搜索条件"/></td>
-                    <td>
-                        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-magnifying-glass',plain:true" onclick="${table.entityPath}SearchFun();">查询</a>
-                        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-x-circle',plain:true" onclick="${table.entityPath}CleanFun();">清空</a>
-                    </td>
+                    <td>名称:</td>
+                    <td><input name="name" type="text" class="easyui-textbox"  placeholder="搜索条件"/></td>                 
                 </tr>
             </table>
         </form>
@@ -173,7 +169,9 @@ function ${table.entityPath}SearchFun() {
     </div>
 </div>
 <div id="${table.entityPath}Toolbar" style="display: none;">
-    <shiro:hasPermission name="/${table.entityPath}/add">
-        <a onclick="${table.entityPath}AddFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'fi-page-add'">添加</a>
+    <shiro:hasPermission name="/user/add">
+        <a onclick="${table.entityPath}AddFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'fi-plus icon-green'">添加</a>
+        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-magnifying-glass',plain:true" onclick="${table.entityPath}SearchFun();">查询</a>
+        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-x-circle',plain:true" onclick="${table.entityPath}CleanFun();">清空</a>       
     </shiro:hasPermission>
 </div>

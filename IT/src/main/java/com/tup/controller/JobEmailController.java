@@ -34,7 +34,7 @@ public class JobEmailController extends BaseController {
 	
 	@GetMapping("/manager")
     public String manager() {
-        return "admin/jobEmail/jobEmail";
+        return "jobEmail/jobEmail";
     } 
 
 
@@ -55,7 +55,7 @@ public class JobEmailController extends BaseController {
      */
     @GetMapping("/addPage")
     public String addPage() {
-        return "admin/jobEmail/jobEmailAdd";
+        return "jobEmail/jobEmailAdd";
     }
 
     /**
@@ -106,7 +106,7 @@ public class JobEmailController extends BaseController {
     public String editPage(Model model, Long id) {
         JobEmail jobEmail = jobEmailService.selectById(id);
         model.addAttribute("jobEmail", jobEmail);
-        return "admin/jobEmail/jobEmailEdit";
+        return "jobEmail/jobEmailEdit";
     }
 
     /**

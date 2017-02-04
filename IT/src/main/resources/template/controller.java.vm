@@ -38,7 +38,7 @@ public class ${table.controllerName} {
 	
 	@GetMapping("/manager")
     public String manager() {
-        return "admin/${table.entityPath}/${table.entityPath}";
+        return "${table.entityPath}/${table.entityPath}";
     }
 
 
@@ -59,7 +59,7 @@ public class ${table.controllerName} {
      */
     @GetMapping("/addPage")
     public String addPage() {
-        return "admin/${table.entityPath}/${table.entityPath}Add";
+        return "${table.entityPath}/${table.entityPath}Add";
     }
 
     /**
@@ -110,7 +110,7 @@ public class ${table.controllerName} {
     public String editPage(Model model, Long id) {
         ${entity} ${table.entityPath} = ${table.entityPath}Service.selectById(id);
         model.addAttribute("${table.entityPath}", ${table.entityPath});
-        return "admin/${table.entityPath}/${table.entityPath}Edit";
+        return "${table.entityPath}/${table.entityPath}Edit";
     }
 
     /**
