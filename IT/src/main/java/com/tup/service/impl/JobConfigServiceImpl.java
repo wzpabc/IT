@@ -1,6 +1,7 @@
 package com.tup.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,7 @@ public class JobConfigServiceImpl extends ServiceImpl<JobConfigMapper, JobConfig
 		}
 		return false;
 	}
+
 	public boolean UpdateTime(JobConfig entity) {
 		int count = 0;
 		JobConfigExample example = new JobConfigExample();
@@ -66,6 +68,7 @@ public class JobConfigServiceImpl extends ServiceImpl<JobConfigMapper, JobConfig
 		}
 		return false;
 	}
+
 	public List<JobConfig> selectJobConfigList(int size) {
 		int count = 0;
 		JobConfigExample example = new JobConfigExample();
@@ -76,6 +79,7 @@ public class JobConfigServiceImpl extends ServiceImpl<JobConfigMapper, JobConfig
 		criteria.andRunStatusEqualTo("0");// realse
 		criteria.andRetryTimeLessThan(4);// worth
 		criteria.andConfigStatusEqualTo("1");// active
+		//criteria.andUpdateTimeLessThan(new Date(VeDate.getNowDate().getTime() + (5 * 60 * 1000))); 
 		System.out.println("selectJobConfigList");
 		List<JobConfig> list = mapper.selectByExample(example);
 		System.out.println(list.size());
