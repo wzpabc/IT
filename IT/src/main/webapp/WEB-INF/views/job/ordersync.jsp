@@ -185,13 +185,18 @@
  
 
 <div id="orderToolbar" style="display: none;">
-    <shiro:hasPermission name="/user/add">
+    <shiro:hasPermission name="/ordersync/search">
        <!-- <a href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'fi-plus icon-green'" onclick="searchOrderFun();" >添加</a>   --> 
         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-magnifying-glass',plain:true" onclick="searchFun();">查询</a>
+          </shiro:hasPermission> 
         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-x-circle',plain:true" onclick="cleanFun();">重置</a>
+            <shiro:hasPermission name="/ordersync/update">
         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-link',plain:true" onclick="setTimeout(function(){  orderSelectedSyncFun();}, 100);">同步选定订单</a>
+           </shiro:hasPermission>
+            <shiro:hasPermission name="/ordersync/updateAll">
         <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-fast-forward',plain:true" onclick="orderAllSyncFun();">同步所有订单</a>
-    </shiro:hasPermission>
+           </shiro:hasPermission> 
+  
    
 </div> 
     <div id="w" class="easyui-window" title="正在处理" data-options="iconCls:'fi-loop',closed:true" >
