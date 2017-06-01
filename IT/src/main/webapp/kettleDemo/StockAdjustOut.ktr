@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>StockAdjustOut</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#x2f;</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection>osb</connection>
+<schema/>
+<table>TRAN_LOG</table>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field><field><id>EXECUTING_SERVER</id><enabled>N</enabled><name>EXECUTING_SERVER</name></field><field><id>EXECUTING_USER</id><enabled>N</enabled><name>EXECUTING_USER</name></field><field><id>CLIENT</id><enabled>N</enabled><name>CLIENT</name></field></trans-log-table>
+<perf-log-table><connection>osb</connection>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection>osb</connection>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection>osb</connection>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+<metrics-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>METRICS_DATE</id><enabled>Y</enabled><name>METRICS_DATE</name></field><field><id>METRICS_CODE</id><enabled>Y</enabled><name>METRICS_CODE</name></field><field><id>METRICS_DESCRIPTION</id><enabled>Y</enabled><name>METRICS_DESCRIPTION</name></field><field><id>METRICS_SUBJECT</id><enabled>Y</enabled><name>METRICS_SUBJECT</name></field><field><id>METRICS_TYPE</id><enabled>Y</enabled><name>METRICS_TYPE</name></field><field><id>METRICS_VALUE</id><enabled>Y</enabled><name>METRICS_VALUE</name></field></metrics-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2016&#x2f;05&#x2f;11 17&#x3a;10&#x3a;56.905</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2016&#x2f;05&#x2f;11 17&#x3a;10&#x3a;56.905</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>oos</name>
+    <server>&#x24;&#x7b;oos_ip&#x7d;</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;oos_dbname&#x7d;</database>
+    <port>&#x24;&#x7b;oos_port&#x7d;</port>
+    <username>&#x24;&#x7b;oos_username&#x7d;</username>
+    <password>&#x24;&#x7b;oos_password&#x7d;</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>80</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>Y</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;oos_port&#x7d;</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>osb</name>
+    <server>&#x24;&#x7b;osb_ip&#x7d;</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;osb_dbname&#x7d;</database>
+    <port>&#x24;&#x7b;osb_port&#x7d;</port>
+    <username>&#x24;&#x7b;osb_username&#x7d;</username>
+    <password>&#x24;&#x7b;osb_password&#x7d;</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>80</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;osb_port&#x7d;</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>ic_t_storage_jde&#x903b;&#x8f91;</from><to>&#x6210;&#x529f;&#x8fd4;&#x56de;</to><enabled>Y</enabled> </hop>
+  <hop> <from>&#x552f;&#x4e00;&#x884c; &#x28;&#x54c8;&#x5e0c;&#x503c;&#x29;</from><to>&#x6807;&#x8bc6;&#x4e3a;1&#xff0c;&#x7ed3;&#x679c;&#x4e3a;true&#xff0c;&#x53d1;&#x90ae;&#x4ef6;</to><enabled>Y</enabled> </hop>
+  <hop> <from>&#x5931;&#x8d25;&#x56de;&#x5199;</from><to>&#x8fc7;&#x6ee4;&#x91cd;&#x8bd5;&#x6b21;&#x6570;&#x5927;&#x4e8e;&#x6700;&#x5927;&#x5931;&#x8d25;&#x6b21;&#x6570;&#x7684;&#x8bb0;&#x5f55;</to><enabled>Y</enabled> </hop>
+  <hop> <from>&#x6807;&#x8bc6;&#x4e3a;1&#xff0c;&#x7ed3;&#x679c;&#x4e3a;true&#xff0c;&#x53d1;&#x90ae;&#x4ef6;</from><to>&#x963b;&#x585e;&#x6570;&#x636e;&#x76f4;&#x5230;&#x6b65;&#x9aa4;&#x90fd;&#x5b8c;&#x6210;</to><enabled>Y</enabled> </hop>
+  <hop> <from>&#x8fc7;&#x6ee4;&#x91cd;&#x8bd5;&#x6b21;&#x6570;&#x5927;&#x4e8e;&#x6700;&#x5927;&#x5931;&#x8d25;&#x6b21;&#x6570;&#x7684;&#x8bb0;&#x5f55;</from><to>&#x552f;&#x4e00;&#x884c; &#x28;&#x54c8;&#x5e0c;&#x503c;&#x29;</to><enabled>Y</enabled> </hop>
+  <hop> <from>&#x8fc7;&#x6ee4;&#x91cd;&#x8bd5;&#x6b21;&#x6570;&#x5927;&#x4e8e;&#x6700;&#x5927;&#x5931;&#x8d25;&#x6b21;&#x6570;&#x7684;&#x8bb0;&#x5f55;</from><to>&#x963b;&#x585e;&#x6570;&#x636e;&#x76f4;&#x5230;&#x6b65;&#x9aa4;&#x90fd;&#x5b8c;&#x6210;</to><enabled>Y</enabled> </hop>
+  <hop> <from>&#x9519;&#x8bef;&#x8868;&#x8f93;&#x51fa;</from><to>&#x5931;&#x8d25;&#x56de;&#x5199;</to><enabled>Y</enabled> </hop>
+  <hop> <from>&#x9519;&#x8bef;&#x8868;&#x8f93;&#x51fa;</from><to>&#x9519;&#x8bef;&#x6570;&#x636e;&#x65e5;&#x5fd7;</to><enabled>Y</enabled> </hop>
+  <hop> <from>&#x963b;&#x585e;&#x6570;&#x636e;&#x76f4;&#x5230;&#x6b65;&#x9aa4;&#x90fd;&#x5b8c;&#x6210;</from><to>&#x4e2d;&#x6b62;</to><enabled>Y</enabled> </hop>
+  <hop> <from>&#x5b57;&#x6bb5;&#x52a0;&#x5de5;</from><to>ic_t_storage_jde&#x903b;&#x8f91;</to><enabled>Y</enabled> </hop>
+  <hop> <from>ic_t_storage_jde&#x903b;&#x8f91;</from><to>&#x9519;&#x8bef;&#x8868;&#x8f93;&#x51fa;</to><enabled>Y</enabled> </hop>
+  <hop> <from>&#x4ece;&#x4e2d;&#x95f4;&#x8868;StockAdjust&#x62bd;&#x53d6;&#x6570;&#x636e;</from><to>&#x5b57;&#x6bb5;&#x52a0;&#x5de5;</to><enabled>Y</enabled> </hop>
+  </order>
+  <step>
+    <name>ic_t_storage_jde&#x903b;&#x8f91;</name>
+    <type>ExecSQL</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>oos</connection>
+    <execute_each_row>Y</execute_each_row>
+    <single_statement>N</single_statement>
+    <replace_variables>Y</replace_variables>
+    <quoteString>Y</quoteString>
+    <sql>update ic_t_storage_jde set backorder_qty &#x3d; &#x28;case when &#x28;backorder_qty - &#x3f;&#x29; &#x3e; 0  then &#x28;backorder_qty - &#x3f;&#x29; else 0 end &#x29; where item_no&#x3d;&#x3f;&#x3b;&#xd;&#xa;insert into ic_t_changebo_flow&#x28;memo,item_no,in_qty,oper_date,oper_id,oper_type,backorder_qty&#x29; values &#x28;&#x27;BO&#x81ea;&#x52a8;&#x5165;&#x5e93;&#x7c;&#x7c;&#x27;&#x2b;&#x3f;,&#x3f;,&#x3f;,getDate&#x28;&#x29;,&#x27;SYS&#x27;,&#x27;2&#x27;,&#x28;select  backorder_qty from ic_t_storage_jde where item_no&#x3d;&#x3f;&#x29;&#x29;&#x3b;</sql>
+    <set_params>N</set_params>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <arguments>
+       <argument><name>QTY</name></argument>
+       <argument><name>QTY</name></argument>
+       <argument><name>LITM</name></argument>
+       <argument><name>EXP</name></argument>
+       <argument><name>LITM</name></argument>
+       <argument><name>QTY</name></argument>
+       <argument><name>LITM</name></argument>
+    </arguments>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>376</xloc>
+      <yloc>75</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>&#x4e2d;&#x6b62;</name>
+    <type>Abort</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <row_threshold>0</row_threshold>
+      <message/>
+      <always_log_rows>Y</always_log_rows>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>568</xloc>
+      <yloc>412</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>&#x4ece;&#x4e2d;&#x95f4;&#x8868;StockAdjust&#x62bd;&#x53d6;&#x6570;&#x636e;</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>osb</connection>
+    <sql>SELECT&#xd;&#xa; EXP&#xd;&#xa;, rtrim&#x28;LITM&#x29; LITM&#xd;&#xa;, QTY&#xd;&#xa;, AutoNumber&#xd;&#xa;, MCU&#xd;&#xa;, DCT&#xd;&#xa;, JDE_UpdateDate&#xd;&#xa;, KT_ProcessDate&#xd;&#xa;, KT_FailDate&#xd;&#xa;, KT_RetryTimes&#xd;&#xa;, KT_ErrorLog &#xd;&#xa;FROM StockAdjust&#xd;&#xa;where DCT &#x3d;&#x27;IE&#x27; and MCU &#x3d;&#x27;7102001&#x27; and QTY &#x3e; 0 and KT_ProcessDate is null and isnull&#x28;KT_RetryTimes,0&#x29;&#x3c;&#x3d;&#x27;&#x24;&#x7b;max_times&#x7d;&#x27;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>101</xloc>
+      <yloc>73</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>&#x552f;&#x4e00;&#x884c; &#x28;&#x54c8;&#x5e0c;&#x503c;&#x29;</name>
+    <type>UniqueRowsByHashSet</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <store_values>N</store_values>
+      <reject_duplicate_row>N</reject_duplicate_row>
+      <error_description/>
+    <fields>      <field>        <name>fayoujian</name>
+        </field>      </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>28</xloc>
+      <yloc>365</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>&#x5931;&#x8d25;&#x56de;&#x5199;</name>
+    <type>ExecSQL</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>osb</connection>
+    <execute_each_row>Y</execute_each_row>
+    <single_statement>N</single_statement>
+    <replace_variables>Y</replace_variables>
+    <quoteString>Y</quoteString>
+    <sql>update StockAdjust set KT_FailDate&#x3d;getdate&#x28;&#x29;,KT_ProcessDate&#x3d;null,KT_RetryTimes&#x3d;&#x3f;&#x2b;1 &#xd;&#xa;where MCU&#x3d;&#x3f; and DCT&#x3d;&#x3f; and LITM&#x3d;&#x3f;  and Autonumber&#x3d;&#x3f;&#xd;&#xa;</sql>
+    <set_params>N</set_params>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <arguments>
+       <argument><name>KT_RetryTimes</name></argument>
+       <argument><name>MCU</name></argument>
+       <argument><name>DCT</name></argument>
+       <argument><name>LITM</name></argument>
+       <argument><name>Autonumber</name></argument>
+    </arguments>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>184</xloc>
+      <yloc>219</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>&#x5b57;&#x6bb5;&#x52a0;&#x5de5;</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#xd;&#xa;&#xd;&#xa;&#x2f;&#x2f; Script here&#xd;&#xa;var maxFailTimes &#x3d; getVariable&#x28;&#x27;max_times&#x27;,0&#x29;&#x3b;&#xd;&#xa;&#x2f;&#x2f;Alert&#x28;&#x22;maxFailTimes&#x22;&#x2b;maxFailTimes&#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;var retryTimes &#x3d; KT_RetryTimes &#x3b;&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;if&#x28;retryTimes&#x3d;&#x3d;&#x27;&#x27; &#x7c;&#x7c; retryTimes&#x3d;&#x3d;null&#x29;&#x7b;&#xd;&#xa;   retryTimes&#x3d;0&#x3b;&#xd;&#xa;&#x7d; &#xd;&#xa;&#xd;&#xa;&#x2f;&#x2f;Alert&#x28;&#x22;retryTimes&#x22;&#x2b;retryTimes&#x29;&#x3b;&#xd;&#xa;var fayoujian&#x3d;&#x22;1&#x22;&#x3b;&#xd;&#xa;&#x2f;&#x2f;&#x7531;&#x4e8e;&#x8bb0;&#x5f55;&#x9519;&#x8bef;&#x6570;&#x636e;&#x8868;&#x540d;&#x5b57;&#xd;&#xa;var table_name &#x3d; &#x22;StockAdjust&#x22;&#x3b;&#xd;&#xa;var key_col &#x3d; &#x22;MCU - DCT -  LITM - AutoNumber&#x22;&#x3b;&#xd;&#xa;&#xd;&#xa;&#x2f;&#x2f;&#x9519;&#x8bef;&#x4e3b;&#x952e;&#x7684;&#x503c;&#x8054;&#x5408;&#x4e3b;&#x952e;&#x7684;&#x503c;&#x7528;-&#x5206;&#x5f00;&#xd;&#xa;var DATA_KEY&#x3d;MCU&#x2b;&#x22; - &#x22;&#x2b;DCT&#x2b;&#x22; - &#x22;&#x2b;LITM&#x2b;&#x22; - &#x22;&#x2b;AutoNumber&#x3b;&#xd;&#xa;var now_date &#x3d; new Date&#x28;&#x29;&#x3b;&#xd;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>table_name</name>
+        <rename>table_name</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>key_col</name>
+        <rename>key_col</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>now_date</name>
+        <rename>now_date</rename>
+        <type>Date</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>retryTimes</name>
+        <rename>retryTimes</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>maxFailTimes</name>
+        <rename>maxFailTimes</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>fayoujian</name>
+        <rename>fayoujian</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>DATA_KEY</name>
+        <rename>DATA_KEY</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>258</xloc>
+      <yloc>77</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>&#x6210;&#x529f;&#x8fd4;&#x56de;</name>
+    <type>ExecSQL</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>osb</connection>
+    <execute_each_row>Y</execute_each_row>
+    <single_statement>N</single_statement>
+    <replace_variables>Y</replace_variables>
+    <quoteString>Y</quoteString>
+    <sql>update StockAdjust set KT_ProcessDate&#x3d;getDate&#x28;&#x29; where AutoNumber&#x3d;&#x3f;&#x3b;</sql>
+    <set_params>N</set_params>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <arguments>
+       <argument><name>AutoNumber</name></argument>
+    </arguments>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>529</xloc>
+      <yloc>76</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>&#x6807;&#x8bc6;&#x4e3a;1&#xff0c;&#x7ed3;&#x679c;&#x4e3a;true&#xff0c;&#x53d1;&#x90ae;&#x4ef6;</name>
+    <type>SetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <field_name>fayoujian</field_name>
+        <variable_name>flag</variable_name>
+        <variable_type>ROOT_JOB</variable_type>
+        <default_value/>
+        </field>
+      </fields>
+    <use_formatting>Y</use_formatting>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>192</xloc>
+      <yloc>411</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>&#x8fc7;&#x6ee4;&#x91cd;&#x8bd5;&#x6b21;&#x6570;&#x5927;&#x4e8e;&#x6700;&#x5927;&#x5931;&#x8d25;&#x6b21;&#x6570;&#x7684;&#x8bb0;&#x5f55;</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>&#x552f;&#x4e00;&#x884c; &#x28;&#x54c8;&#x5e0c;&#x503c;&#x29;</send_true_to>
+<send_false_to>&#x963b;&#x585e;&#x6570;&#x636e;&#x76f4;&#x5230;&#x6b65;&#x9aa4;&#x90fd;&#x5b8c;&#x6210;</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>retryTimes</leftvalue>
+   <function>&#x3e;&#x3d;</function>
+   <rightvalue>maxFailTimes</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>180</xloc>
+      <yloc>298</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>&#x9519;&#x8bef;&#x6570;&#x636e;&#x65e5;&#x5fd7;</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <loglevel>log_level_minimal</loglevel>
+      <displayHeader>Y</displayHeader>
+      <limitRows>N</limitRows>
+      <limitRowsNumber>0</limitRowsNumber>
+      <logmessage>&#x6570;&#x636e;&#x5b57;&#x6bb5;&#x5b57;&#x6bb5;&#x65e5;&#x5fd7;</logmessage>
+    <fields>
+      <field>
+        <name>MCU</name>
+        </field>
+      <field>
+        <name>DCT</name>
+        </field>
+      <field>
+        <name>LITM</name>
+        </field>
+      <field>
+        <name>Autonumber</name>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>547</xloc>
+      <yloc>219</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>&#x9519;&#x8bef;&#x8868;&#x8f93;&#x51fa;</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>osb</connection>
+    <schema/>
+    <table>ERROR_DATA</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>ERROR_NUM</column_name>
+          <stream_name>ERROR_NUM</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>ERROR_DESC</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_COL</column_name>
+          <stream_name>ERROR_COL</stream_name>
+        </field>
+        <field>
+          <column_name>DATA_KEY</column_name>
+          <stream_name>DATA_KEY</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODE</column_name>
+          <stream_name>ERROR_CODE</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_TABLE</column_name>
+          <stream_name>table_name</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TIME</column_name>
+          <stream_name>now_date</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TIME</column_name>
+          <stream_name>now_date</stream_name>
+        </field>
+        <field>
+          <column_name>DATA_COL</column_name>
+          <stream_name>key_col</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>380</xloc>
+      <yloc>219</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>&#x963b;&#x585e;&#x6570;&#x636e;&#x76f4;&#x5230;&#x6b65;&#x9aa4;&#x90fd;&#x5b8c;&#x6210;</name>
+    <type>BlockUntilStepsFinish</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <steps>
+      <step>
+        <name>&#x6210;&#x529f;&#x8fd4;&#x56de;</name>
+        <CopyNr>0</CopyNr>
+        </step>
+      <step>
+        <name>&#x8fc7;&#x6ee4;&#x91cd;&#x8bd5;&#x6b21;&#x6570;&#x5927;&#x4e8e;&#x6700;&#x5927;&#x5931;&#x8d25;&#x6b21;&#x6570;&#x7684;&#x8bb0;&#x5f55;</name>
+        <CopyNr>0</CopyNr>
+        </step>
+      <step>
+        <name>&#x6807;&#x8bc6;&#x4e3a;1&#xff0c;&#x7ed3;&#x679c;&#x4e3a;true&#xff0c;&#x53d1;&#x90ae;&#x4ef6;</name>
+        <CopyNr>0</CopyNr>
+        </step>
+      </steps>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>407</xloc>
+      <yloc>411</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+      <error>
+        <source_step>ic_t_storage_jde&#x903b;&#x8f91;</source_step>
+        <target_step>&#x9519;&#x8bef;&#x8868;&#x8f93;&#x51fa;</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>ERROR_NUM</nr_valuename>
+        <descriptions_valuename>ERROR_DESC</descriptions_valuename>
+        <fields_valuename>ERROR_COL</fields_valuename>
+        <codes_valuename>ERROR_CODE</codes_valuename>
+        <max_errors/>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+
+</transformation>
