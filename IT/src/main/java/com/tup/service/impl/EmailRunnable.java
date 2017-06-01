@@ -7,8 +7,8 @@ import com.tup.service.IJobEmailService;
 
 public class EmailRunnable {
 
-	private TaskExecutor taskExecutor;
-	private MailSenderService mailSenderService;
+	private TaskExecutor taskExecutor;//inject from task.xml
+	private MailSenderService mailSenderService;//inject from task.xml extends Runnable
 
 	@Autowired
 	private IJobEmailService service;

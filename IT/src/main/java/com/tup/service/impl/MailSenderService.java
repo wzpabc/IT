@@ -25,10 +25,10 @@ public class MailSenderService implements Runnable {
 	private static transient Log logger = LogFactory.getLog(MailSenderService.class);
 
 	// @Autowired
-	private JavaMailSenderImpl mailSender;
+	private JavaMailSenderImpl mailSender;// 注入Spring封装的javamail，Spring的xml中已让框架装配  
 
 	@Autowired
-	private IJobEmailService iJobEmailService;
+	private IJobEmailService iJobEmailService;// my mail interface , to get mail data
 	// 发送邮件的服务器的IP和端口
 	private String host;
 	private int size = 10;

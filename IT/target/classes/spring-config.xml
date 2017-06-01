@@ -10,12 +10,24 @@
        http://www.springframework.org/schema/aop/spring-aop.xsd"
 	default-autowire="byName">
 
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:application.properties" />
+	<bean id="propertyConfigurer" class="com.tup.commons.utils.CustomizedPropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:application.properties"/>
 	</bean>
 
-
+	<!-- 读取velocity模板的工厂类，也就是的不同的模板的 -->
+	<bean id="velocityEngine"
+		class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<props>
+				<!-- 设置从classPath下读取模板文件 vm文件 -->
+				<prop key="resource.loader">class</prop>
+				<prop key="class.resource.loader.class">
+					org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+				</prop>
+				<prop key="velocimacro.library"></prop>
+			</props>
+		</property>
+	</bean>
 	<!-- aspectj aop启用CGliB代理 -->
 	<aop:aspectj-autoproxy expose-proxy="true"
 		proxy-target-class="true" />

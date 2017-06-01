@@ -12,7 +12,7 @@
         </commentGenerator>
         <!--数据库链接地址账号密码-->
         <jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
-        connectionURL="jdbc:sqlserver://localhost;instanceName=sqlexpress;DatabaseName=osb_qa" 
+        connectionURL="jdbc:sqlserver://localhost;instanceName=report;DatabaseName=osb_qa" 
         userId="sa" password="1qaz@WSX">
         </jdbcConnection>
         <javaTypeResolver>

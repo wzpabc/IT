@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <!--数据库驱动-->
-    <classPathEntry    location="d:/mysql-connector-java-5.1.40.jar"/>
+    <classPathEntry    location="C:/IT/mysql-connector-java-5.1.40.jar"/>
     <context id="DB2Tables"    targetRuntime="MyBatis3">
         <commentGenerator>
             <property name="suppressDate" value="true"/>
@@ -47,7 +47,8 @@
           <table tableName="job_email" domainObjectName="JobEmail" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
      
          -->
-         <table tableName="OutletStock" domainObjectName="Outletstock" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+         <table tableName="maillist" domainObjectName="Maillist" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+      <table tableName="mailtemp" domainObjectName="Mailtemp" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
      
     </context>
 </generatorConfiguration>
