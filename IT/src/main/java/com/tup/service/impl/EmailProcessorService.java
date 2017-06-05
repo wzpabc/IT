@@ -40,7 +40,7 @@ public class EmailProcessorService implements Runnable {
 //	@Autowired
 //	private VelocityEngine velocityEngine;
 
-	@Override
+	//@Override
 	public void run() {
 		MimeMessage msg;
 

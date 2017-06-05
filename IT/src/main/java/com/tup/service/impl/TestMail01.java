@@ -26,7 +26,7 @@ public class TestMail01 implements ITestMail01 {
 	 * 
 	 * @see com.tup.service.impl.ITestMail01#init()
 	 */
-	@Override
+	//@Override
 	public void init() {
 
 		UUID uuid = UUID.randomUUID();	 
