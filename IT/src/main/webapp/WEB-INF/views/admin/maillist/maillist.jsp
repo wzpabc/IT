@@ -8,14 +8,14 @@
         striped : true,
         rownumbers : true,
         pagination : true,
-        singleSelect : true,
+        singleSelect : false,
         idField : 'id',
         sortName : 'id',
         sortOrder : 'asc',
         pageSize : 20,
         pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500],
         columns : [ [ 
-         
+         		 {field:'ck',checkbox:true}, 
 				 { width : '60',title : 'id', field : 'id',sortable : true },
 				 { width : '100',title : 'subject', field : 'subject',sortable : true },
 				 { width : '100',title : 'content', field : 'content',sortable : true },
@@ -174,9 +174,25 @@ function maillistSearchFun() {
     <div data-options="region:'north',border:false" style="height: 30px; overflow: hidden;background-color: #fff">
         <form id="maillistSearchForm">
             <table>
-                <tr>
-                    <td>名称:</td>
-                    <td><input name="name" type="text" class="easyui-textbox"  placeholder="搜索条件"/></td>                 
+                 <tr>
+                  <td>&nbsp日期从:</td>
+                  <td>
+                  	<input name="createdateStart" class="easyui-datebox"  /> 
+                  </td>
+                  <td>&nbsp至:</td>
+                   <td>
+                   	 <input  name="createdateEnd" class="easyui-datebox"   /> 
+                   </td>
+                        <td>&nbspMail类型：</td>
+                    <td>
+                       <input id="cc" class="easyui-combobox" name="mailtype"  data-options="valueField:'id',value:'ALL',textField:'text',url:'${staticPath }/ordertype'">
+                    </td>  
+                         <td>&nbsp状态：</td>
+                    <td>
+                       <input id="cc" class="easyui-combobox" name="status"  data-options="valueField:'id',value:'ALL',textField:'text',url:'${staticPath }/ordertype'">
+                    </td>  
+                     <td><input type="checkbox" id="autorefresh" name="autorefresh" value="checked">auto-refresh<br /></td>    
+                         		  
                 </tr>
             </table>
         </form>
@@ -188,8 +204,12 @@ function maillistSearchFun() {
 </div>
 <div id="maillistToolbar" style="display: none;">
     <shiro:hasPermission name="/user/add">
-        <a onclick="maillistAddFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'fi-plus icon-green'">添加</a>
-        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-magnifying-glass',plain:true" onclick="maillistSearchFun();">查询</a>
-        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-x-circle',plain:true" onclick="maillistCleanFun();">清空</a>       
+		<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-magnifying-glass',plain:true" onclick="maillistSearchFun();">查询</a>
+		<a onclick="maillistAddFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'fi-play'">运行</a>       
+		<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-stop',plain:true" onclick="maillistCleanFun();">停止</a>    
+		<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-check',plain:true" onclick="#">激活</a>
+		<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-x-circle',plain:true" onclick="maillistCleanFun();">删除</a>   
+		<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'fi-arrows-in',plain:true" onclick="maillistCleanFun();">归档</a>   
+        
     </shiro:hasPermission>
 </div>

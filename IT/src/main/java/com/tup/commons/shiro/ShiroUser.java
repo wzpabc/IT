@@ -17,6 +17,7 @@ public class ShiroUser implements Serializable {
     private Long id;
     private final String loginName;
     private String name;
+    private String  homeurl="/druid/index.html";
     private Set<String> urlSet;
     private Set<String> roles;
 
@@ -31,7 +32,15 @@ public class ShiroUser implements Serializable {
         this.urlSet = urlSet;
     }
 
-    public Long getId() {
+    public String getHomeurl() {
+		return homeurl;
+	}
+
+	public void setHomeurl(String homeurl) {
+		this.homeurl = homeurl;
+	}
+
+	public Long getId() {
         return id;
     }
 

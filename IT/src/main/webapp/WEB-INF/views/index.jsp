@@ -196,7 +196,9 @@
                 <div title="首页" data-options="iconCls:'fi-home',border:false" style="overflow: hidden;">
                    <!--  <script src='http://cn.bing.com/'></script>--> 
                    <div>  
-	                   <iframe src="${staticPath }/druid/index.html" id="mainweb" name="mainweb" width="100%" height="2000px" frameborder="0"  >
+                    <iframe src="${staticPath }<shiro:principal property="homeurl"/>" id="mainweb" name="mainweb" width="100%" height="2000px" frameborder="0"  >
+	                  <!--  <iframe src="${staticPath }/druid/index.html" id="mainweb" name="mainweb" width="100%" height="2000px" frameborder="0"  >
+	                   -->
 	                   </iframe> 
                    </div>
                     <style>

@@ -3,6 +3,7 @@
 <script type="text/javascript">
     $(function () {
     	//
+	
     	orderDataGrid = $('#orderDataGrid').datagrid({
             url: '${path }/ordersync/dataGrid',
            // url:'',
@@ -58,6 +59,12 @@
     });
     
     $(document).ready(function() {
+    	//Combobox的onChange事件
+    	$("#cc").combobox({
+    		onChange: function (n,o) {
+    			searchFun();
+    		}    		
+    	});
         function count() {
         	//alert($('[name=autorefresh]:checked').val());
         	if( $('[name=autorefresh]:checked').val()=="checked"){
@@ -66,6 +73,8 @@
         }
         var auto_refresh = setInterval(function() { count() }, 5000);
         count();
+        
+       
     });
     
     var msg=""
@@ -131,7 +140,12 @@
     	 
     }
     
-    
+    //function myblur(){
+    	
+    //	 $("#cc").combobox().next().children(":text").blur(function(){  
+    //         alert("onblur事件");  
+    //     });
+   // }
     function orderAllSyncFun(){
     	msg="您确定要执行操作吗？";
     	 $.messager.defaults = { ok: "是", cancel: "否",width:"300px" ,iconCls:'fi-alert icon-red'};
@@ -169,7 +183,7 @@
                   <td>
                   	<input name="createdateStart" class="easyui-datebox"  /> 
                   </td>
-                  <td>&nbsp订单日期从至:</td>
+                  <td>&nbsp至:</td>
                    <td>
                    	 <input  name="createdateEnd" class="easyui-datebox"   /> 
                    </td>

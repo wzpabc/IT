@@ -39,7 +39,7 @@ public class TestMail01 implements ITestMail01 {
 		String file = root + this.getClass().getName() + File.separator 
 				+ VeDate.getStringDateShort() + File.separator
 				+ (uuid.toString())+".txt";
-		FileUtil.saveFile(file, html);
+		//FileUtil.saveFile(file, html);
 		System.out.println(file);
 	}
 

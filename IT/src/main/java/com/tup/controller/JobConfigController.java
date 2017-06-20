@@ -78,6 +78,7 @@ public class JobConfigController extends BaseController {
         return renderSuccess("添加成功！");
     }
 
+    
     /**
      * 删除权限
      *

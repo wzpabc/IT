@@ -41,18 +41,33 @@ public class OrderServiceImpl extends ServiceImpl<OrderHeaderInMapper, OrderHead
 	}
 
 	public void selectDataGridVo(PageInfo pageInfo) {
+		String sample = "F-S21700313024";
 		System.out.println(helper);
 		OrderHeaderInVoExample example = new OrderHeaderInVoExample();
 		Criteria criteria = example.createCriteria();
-		if (!StringUtils.isEmpty(helper.getOrderno()) && !helper.getOrderno().equals("")) {
+		if (!StringUtils.isEmpty(helper.getOrderno()) && !helper.getOrderno().equals("")
+				&& helper.getOrderno().length() == sample.length()) {
 			criteria.andSyvr01EqualTo(helper.getOrderno());
+
+		} else if (helper.getOrderno().length() < sample.length() && helper.getOrderno().length() >= 1) {
+			// System.out.println(helper.getOrderno());
+			criteria.andSyvr01Like("%" + helper.getOrderno() + "%");
 		}
 		if (!StringUtils.isEmpty(helper.getOrganno()) && !helper.getOrganno().equals("")) {
-			criteria.andSydocoEqualTo(Long.valueOf(helper.getOrganno()));
+			try {
+				criteria.andSyan8EqualTo(Integer.valueOf(helper.getOrganno()));
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println(e.getMessage());
+			}
 		}
+
 		if (!StringUtils.isEmpty(helper.getCreatedateStart()) && !StringUtils.isEmpty(helper.getCreatedateEnd())) {
 			criteria.andSytrdjBetween(VeDate.strToDate(helper.getCreatedateStart()),
 					VeDate.strToDate(helper.getCreatedateEnd()));
+		} else if (!StringUtils.isEmpty(helper.getCreatedateStart())
+				&& StringUtils.isEmpty(helper.getCreatedateEnd())) {
+			criteria.andSytrdjGreaterThanOrEqualTo(VeDate.strToDate(helper.getCreatedateStart()));
 		}
 		if (StringUtils.isEmpty(helper.getJdestatus())) {
 			criteria.andJdeStatusEqualTo("3");
@@ -61,7 +76,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderHeaderInMapper, OrderHead
 			criteria.andSydctoEqualTo(helper.getOrdertype());
 		}
 
-		example.setOrderByClause(" syvr01 desc");
+		example.setOrderByClause(" Sytrdj desc");
 		example.setPage(String.valueOf(helper.getPage()));
 		example.setRows(String.valueOf(helper.getRows()));
 

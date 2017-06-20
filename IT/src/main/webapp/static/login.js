@@ -11,61 +11,71 @@ if (self != top) {
 $(function () {
     // 得到焦点
     $("#password").focus(function () {
-        $("#left_hand").animate({
-            left: "150",
-            top: " -38"
-        }, {
-            step: function () {
-                if (parseInt($("#left_hand").css("left")) > 140) {
-                    $("#left_hand").attr("class", "left_hand");
-                }
-            }
-        }, 2000);
-        $("#right_hand").animate({
-            right: "-64",
-            top: "-38px"
-        }, {
-            step: function () {
-                if (parseInt($("#right_hand").css("right")) > -70) {
-                    $("#right_hand").attr("class", "right_hand");
-                }
-            }
-        }, 2000);
+//        $("#left_hand").animate({
+//            left: "150",
+//            top: " -38"
+//        }, {
+//            step: function () {
+//                if (parseInt($("#left_hand").css("left")) > 140) {
+//                    $("#left_hand").attr("class", "left_hand");
+//                }
+//            }
+//        }, 2000);
+//        $("#right_hand").animate({
+//            right: "-64",
+//            top: "-38px"
+//        }, {
+//            step: function () {
+//                if (parseInt($("#right_hand").css("right")) > -70) {
+//                    $("#right_hand").attr("class", "right_hand");
+//                }
+//            }
+//        }, 2000);
     });
+    //回车事件是否有既兼容ie又兼容火狐
+    $("body").keydown(function(e){
+		var curKey = e.which;
+		if(curKey == 13){
+			
+			$('#loginform').submit();
+			
+		}
+	});
     // 失去焦点
     $("#password").blur(function () {
-        $("#left_hand").attr("class", "initial_left_hand");
-        $("#left_hand").attr("style", "left:100px;top:-12px;");
-        $("#right_hand").attr("class", "initial_right_hand");
-        $("#right_hand").attr("style", "right:-112px;top:-12px");
+//        $("#left_hand").attr("class", "initial_left_hand");
+//        $("#left_hand").attr("style", "left:100px;top:-12px;");
+//        $("#right_hand").attr("class", "initial_right_hand");
+//        $("#right_hand").attr("style", "right:-112px;top:-12px");
     });
     // 验证码
     $("#captcha").click(function() {
-        var $this = $(this);
-        var url = $this.data("src") + new Date().getTime();
-        $this.attr("src", url);
+//        var $this = $(this);
+//        var url = $this.data("src") + new Date().getTime();
+//        $this.attr("src", url);
     });
     // 登录
     $('#loginform').form({
         url: basePath + '/login',
         onSubmit : function() {
             progressLoad();
-            var isValid = $(this).form('validate');
-            if(!isValid){
-                progressClose();
-            }
-            return isValid;
+//            var isValid = $(this).form('validate');
+//            if(!isValid){
+//                progressClose();
+//            }
+//            return isValid;
         },
         success:function(result){
             progressClose();
             result = $.parseJSON(result);
             if (result.success) {
                 window.location.href = basePath + '/index';
-            }else{
-                // 刷新验证码
-                $("#captcha")[0].click();
-                showMsg(result.msg);
             }
+//            else{
+//                // 刷新验证码
+//                $("#captcha")[0].click();
+//                showMsg(result.msg);
+//            }
         }
     });
 });
@@ -83,3 +93,5 @@ function enterlogin(){
         $('#loginform').submit();
     }
 }
+
+
