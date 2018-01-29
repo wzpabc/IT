@@ -18,7 +18,7 @@ import com.tup.model.Maillist;
 import com.tup.service.IMaillistService;
 import com.tup.service.ITestMail01;
 
-public class EmailProcessorService implements Runnable { 
+public class EmailProcessorService implements Runnable {
 	private String root;
 	private int port;
 	private String users;
@@ -26,24 +26,32 @@ public class EmailProcessorService implements Runnable {
 	private String password;
 	private String[] userArray;
 	private int size = 1;
+	private String encoding = "UTF-8";
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
 
 	@Autowired
 	private IMaillistService maillistService;
 
 	@Autowired
 	private JavaMailSenderImpl mailSender;// spring standar mail
-	
+
 	@Autowired
 	private ITestMail01 testMail01;
 
 	// 使用Velocity模板，需要Velocity的jar包，然后需要声明一个VelocityEngine对象
-//	@Autowired
-//	private VelocityEngine velocityEngine;
+	// @Autowired
+	// private VelocityEngine velocityEngine;
 
-	//@Override
+	// @Override
 	public void run() {
-		MimeMessage msg;
-
+		MimeMessage msg; 
 		for (Maillist mail : maillistService.selectMailList(size)) {
 
 			try {
@@ -60,9 +68,9 @@ public class EmailProcessorService implements Runnable {
 
 		}
 		// TODO Auto-generated method stub
-		//generateMail01.init(); 
-		  testMail01.init();
-		//System.out.println(root);
+		// generateMail01.init();
+		testMail01.init();
+		// System.out.println(root);
 		// System.out.println(this.toString());
 		System.out.println((new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date()));
 
@@ -71,12 +79,20 @@ public class EmailProcessorService implements Runnable {
 	public MimeMessage createMimeMessage(Maillist email) throws MessagingException, UnsupportedEncodingException {
 
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
-		MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "GB2312");
+		
+		MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, encoding);
 		messageHelper.setSubject(email.getSubject());
-		messageHelper.setText(FileUtil.loadFile(email.getContent(), "GB2312"), true);
+		messageHelper.setText(FileUtil.loadFile(email.getContent(), encoding), true);
 		messageHelper.setTo(email.getEmailto().split(";"));
-		messageHelper.setCc(email.getEmailcc().split(";"));
-		messageHelper.setBcc(email.getEmailbc().split(";"));
+		if (email.getEmailcc() == null || email.getEmailcc().length() <= 5) {
+
+			messageHelper.setCc(email.getEmailcc().split(";"));
+		}
+		if (email.getEmailbc() == null || email.getEmailbc().length() <= 5) {
+
+			messageHelper.setBcc(email.getEmailbc().split(";"));
+		}
+
 		String[] attchs = email.getAttpath().split(";");
 		for (int i = 0; i < attchs.length; i++) {
 			File file = new File(attchs[i]);
@@ -87,8 +103,6 @@ public class EmailProcessorService implements Runnable {
 		messageHelper.setSentDate(VeDate.getNow());
 		return mimeMessage;
 	}
-
-	 
 
 	public void templateSend() throws MessagingException {
 		// // 声明Map对象，并填入用来填充模板文件的键值对

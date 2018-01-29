@@ -31,8 +31,8 @@ public class TestMail01 implements ITestMail01 {
 
 		UUID uuid = UUID.randomUUID();	 
 		root = CustomizedPropertyPlaceholderConfigurer.getContextProperty("tup.folder").toString();
-		System.out.println("test");
-		System.out.println(root);
+		System.out.println("ITestMail01.init()");
+		//System.out.println(root);
 		String att1template = "velocity/mail2.vm";
 		VelocityContext context = contextAttch01();
 		String html = getContent(context, att1template);
@@ -40,7 +40,7 @@ public class TestMail01 implements ITestMail01 {
 				+ VeDate.getStringDateShort() + File.separator
 				+ (uuid.toString())+".txt";
 		//FileUtil.saveFile(file, html);
-		System.out.println(file);
+		//System.out.println(file);
 	}
 
 	/*

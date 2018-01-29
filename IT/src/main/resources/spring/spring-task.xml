@@ -42,7 +42,7 @@
 	<!-- Runnable -->
 	<bean id="mailSenderService" class="com.tup.service.impl.MailSenderService">
 		<property name="mailSender" ref="mailSender" />
-		<property name="size" value="1" />
+		<property name="size" value="5" />
 	</bean>
 	<!-- execute Runnable -->
 	<bean id="emailprocessor" class="com.tup.service.impl.EmailRunnable">
@@ -58,6 +58,8 @@
 		<property name="port" value="${tup.port}" />
 		<property name="users" value="${tup.users}" />
 		<property name="password" value="${tup.password}" />
+		<property name="size" value="5" />
+		<property name="encoding" value="UTF-8" />
 	</bean>
 	<!-- execute Runnable -->
 	<bean id="tupemailprocessor" class="com.tup.service.impl.EmailProcessor">
